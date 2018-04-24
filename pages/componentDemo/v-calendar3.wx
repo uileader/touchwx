@@ -1,0 +1,142 @@
+<template>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="close" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>选择日期</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="margin-top:{{NAV_HEIGHT}}"></view>
+      <ui-v-calendar
+      select-range-mode="{{false}}"
+      header-height="30"
+      height="319"
+      date-range="{{[3,3]}}"
+      show-month-range="{{monthrange}}"
+      bindchange="selectedChange"
+      value="{{radioDate}}"
+      theme-color="red"
+    ></ui-v-calendar>
+  
+    </view>
+  </template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "纵向日历"
+    },
+    data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      radioDate: '',
+      radioMonth: '',
+      radioDay: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendar: false,
+      rangeCalendarDefault: false,
+      // 时间差
+      differ: '',
+      differ2: '',
+      differShow: false,
+      rangeDate: '',
+      rangeDate2: '',
+      rangestart: '',
+      rangeend: '',
+      rangestart2: '',
+      rangeend2: '',
+      height: wx.WIN_HEIGHT
+    },
+    radioinit (thisdate) {
+      this.data.dateobj.radioDate = thisdate
+      this.data.dateobj.radioDate = thisdate.split('/')
+      this.data.radioDate = this.data.dateobj.radioDate
+      this.data.radioMonth = this.data.dateobj.radioDate[1]
+      this.data.radioDay = this.data.dateobj.radioDate[2]
+      this.setData({
+        radioDate:thisdate
+      })
+      
+    },
+    selectedChange (e) {
+      this.radioinit(e.detail)
+      setTimeout(() => {
+        var pages = getCurrentPages()
+        var currPage = pages[pages.length - 1];   //当前页面
+        var prevPage = pages[pages.length - 2];  
+        console.log(this.data.dateobj.radioDate,'chuanhuiqude') 
+        prevPage.setData({
+          radioMonth:this.data.dateobj.radioDate[1],
+          radioDay:this.data.dateobj.radioDate[2],
+        })
+        wx.navigateBack()
+      }, 200)
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+
+    onLoad () {
+      // 计算时间范围
+      let radiodate = new Date()
+      let rangedate2 = new Date()
+     
+      let date = new Date()
+      this.radioinit(this.format(date))
+      
+    },
+    navigateBack () {
+      wx.navigateBack()
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+  // calendar2.less
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+  }
+  }
+  .win{
+    padding:10px 30px; 
+  }
+  .smalltitle{
+    font-size:12px;
+    color:#666
+  }
+  .smalltitle2{
+    background-color:#ebc7c8;
+    color: #C01920;
+    padding:0px 3px;
+    border-radius: 5px;
+    font-size:12px;
+  }
+  
+  .btnyd {
+    background-color: #C01920;
+    border-radius: 20px;
+    border-color: #C01920;
+    box-shadow: 3px 3px 8px #E57A7E;
+    color: #fff;
+  }
+  
+  
+  </style>

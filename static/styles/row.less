@@ -1,0 +1,27 @@
+@import '../utils/mixins.less';
+
+.ui-row {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.ui-row-border-top {
+  &:before {
+    .setTopLine();
+  }
+}
+
+.ui-row-border-bottom {
+  &:after {
+    .setBottomLine();
+  }
+}
+
+.ui-row-img img, .ui-row-icon i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

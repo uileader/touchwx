@@ -1,0 +1,264 @@
+<template>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <text>完成</text>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>请选择入住离店日期</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="padding-top:{{NAV_HEIGHT}}"></view>
+      <!-- 双选，默认选中 -->
+      <ui-v-calendar
+      height="{{height - headerHeight}}"
+      select-range-mode
+      max-range="{{30}}"
+      date-range="{{[3,3]}}"
+      value="{{defaultMonthrange}}"
+      bindselectedstart="selectedStartHandler2"
+      bindselectedend="selectedEndHandler2"
+      bindfailed="failedHandler2($event)"
+    ></ui-v-calendar>
+      <!-- 双选，默认选中结束 -->
+  </view>
+</template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "纵向日历"
+    },
+    data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      statusBarHeight: wx.STATUS_BAR_HEIGHT,
+      headerHeight: wx.DEFAULT_HEADER_HEIGHT,
+      radioCalendar: false,
+      radioDate: '',
+      radioYear: '',
+      radioMonth: '',
+      radioDay: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendar: false,
+      rangeCalendarDefault: false,
+      // 时间差
+      differ: '',
+      differ2: '',
+      differShow: false,
+      rangeDate: '',
+      rangeDate2: '',
+      rangestart: '',
+      rangeend: '',
+      rangestart2: '',
+      rangeend2: '',
+      height: wx.WIN_HEIGHT
+    },
+    radioinit (thisdate) {
+      console.log(thisdate)
+      this.data.dateobj.radioDate = thisdate
+      this.data.dateobj.radioDate = thisdate.split('/')
+      this.data.radioDate = this.data.dateobj.radioDate
+      this.data.radioMonth = this.data.dateobj.radioDate[1]
+      this.data.radioDay = this.data.dateobj.radioDate[2]
+      this.setData({
+        radioDate:thisdate,
+        radioMonth:this.data.dateobj.radioDate[1],
+        radioDay:this.data.dateobj.radioDate[2]
+      })
+      console.log(this.data.radioDate,'11111')
+    },
+    // 单选将改变的时间，赋值给时间。
+    rangeinit (thisdate) {
+      let start, end
+      this.data.dateobj.rangestart = thisdate.rangedate[0]
+      this.data.dateobj.rangeend = thisdate.rangedate[1]
+      start = this.data.dateobj.rangestart.split('/')
+      end = this.data.dateobj.rangeend.split('/')
+      // this.rangestart = `${start[1]}月${start[2]}日`
+      // this.rangeend = `${end[1]}月${end[2]}日`
+      this.setData({
+        rangestart:`${start[1]}月${start[2]}日`,
+        rangeend:`${end[1]}月${end[2]}日`
+      })
+    },
+    rangeinit2 (thisdate) {
+      console.log('rangeinit2',thisdate)
+      let start, end
+      this.data.dateobj.rangestart2 = thisdate.rangedate2[0]
+      this.data.dateobj.rangeend2 = thisdate.rangedate2[1]
+      start = this.data.dateobj.rangestart2.split('/')
+      end = this.data.dateobj.rangeend2.split('/')
+      // this.rangestart2 = `${start[1]}月${start[2]}日`
+      // this.rangeend2 = `${end[1]}月${end[2]}日`
+      this.setData({
+        rangestart2:`${start[1]}月${start[2]}日`,
+        rangeend2:`${end[1]}月${end[2]}日`
+      })
+      console.log(this.data.rangestart2,this.data.rangeend2,start,end)
+    },
+    selectedChange (e) {
+      this.radioinit(e.detail)
+      setTimeout(() => {
+        this.radioCalendar = false
+        this.setData({
+          radioCalendar:false
+        })
+      }, 200)
+    },
+    selectedStartHandler (e) {
+      console.log(e,'selectedStartHandler')
+      this.rangeDate = e
+    },
+    selectedEndHandler (e) {
+      console.log(e,'selectedEndHandler')
+      this.data.dateobj.rangedate = e.detail
+      setTimeout(() => {
+        // this.rangeCalendar = false
+        this.setData({
+          rangeCalendar:false
+        })
+        // wx.setStatusBarStyle({style: 'light'})
+      }, 200)
+      this.calculationDays()
+      this.rangeinit(this.data.dateobj)
+    },
+    failedHandler (err) {
+      if (err === 1) {
+        wx.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+    selectedStartHandler2 (e) {
+      console.log(e,'selectedStartHandler2开始')
+      this.data.rangeDate2 = e.detail
+      console.log(this.data.rangeDate2,'this.data.rangeDate2')
+    },
+    selectedEndHandler2 (e) {
+      console.log(e,'selectedEndHandler2结束')
+      this.data.dateobj.rangedate2 = e.detail
+      console.log(this.data.dateobj.rangedate2)
+      setTimeout(() => {
+        var pages = getCurrentPages()
+        var currPage = pages[pages.length - 1];   //当前页面
+        var prevPage = pages[pages.length - 2];  
+        console.log(this.data.dateobj.rangedate2[0],this.data.dateobj.rangedate2[1],'chuanhuiqude') 
+        prevPage.setData({
+          rangestart2:this.data.dateobj.rangedate2[0],
+          rangeend2:this.data.dateobj.rangedate2[1]
+        })
+        wx.navigateBack()
+      }, 200)
+      this.calculationDays2()
+      this.rangeinit2(this.data.dateobj)
+    },
+    failedHandler2 (err) {
+      if (err === 1) {
+        wx.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+ 
+    // 范围选择，根据选择日期，计算几晚
+    calculationDays () {
+      let start, end
+      start = Date.parse(this.data.dateobj.rangedate[0])
+      end = Date.parse(this.data.dateobj.rangedate[1])
+      this.data.differ = Math.floor((end - start) / (24 * 3600 * 1000))
+      this.data.differShow = true
+      this.setData({
+        differ:this.data.differ,
+        differShow:true
+      })
+    },
+    // 默认选中的。范围选择，根据选择日期，计算几晚
+    calculationDays2 () {
+      let start, end
+      start = Date.parse(this.data.dateobj.rangedate2[0])
+      end = Date.parse(this.data.dateobj.rangedate2[1])
+      this.data.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+      this.setData({
+        differ2:this.data.differ2
+      })
+    },
+    onLoad () {
+      // 计算时间范围
+      let radiodate = new Date()
+      let rangedate = new Date()
+      let rangedate2 = new Date()
+      this.radioDate = this.format(Date.parse(radiodate))
+      let start, end, defaultStart, defaultEnd
+      start = this.format(rangedate.setMonth(new Date().getMonth()))
+      end = this.format(rangedate.setMonth(new Date().getMonth() + 6))
+      start = start.substring(0, 7)
+      end = end.substring(0, 7)
+      this.data.monthrange.push(start, end)
+      defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+      defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+      this.data.defaultMonthrange.push(defaultStart, defaultEnd)
+      this.setData({
+        monthrange:this.data.monthrange,
+        defaultMonthrange:this.data.defaultMonthrange
+      })
+      let date = new Date()
+      this.radioinit(this.format(date))
+      console.log(this.data.monthrange,this.data.defaultMonthrange,'12312311')
+    },
+    navigateBack () {
+      wx.navigateBack()
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+  // calendar2.less
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+  }
+  }
+  .win{
+    padding:10px 30px; 
+  }
+  .smalltitle{
+    font-size:12px;
+    color:#666
+  }
+  .smalltitle2{
+    background-color:#ebc7c8;
+    color: #C01920;
+    padding:0px 3px;
+    border-radius: 5px;
+    font-size:12px;
+  }
+  
+  .btnyd {
+    width:100%;
+    background-color: #C01920;
+    border-radius: 20px;
+    border-color: #C01920;
+    box-shadow: 3px 3px 8px #E57A7E;
+    color: #fff;
+  }
+
+  .btnyd::after{
+    border: none;
+  }
+  
+  
+  </style>

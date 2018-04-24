@@ -1,0 +1,158 @@
+<!--badge.ui-->
+<template>
+  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+    <ui-row height="46">
+      <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center">
+        <view>角标</view>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center" width="60">
+      </ui-col>
+    </ui-row>
+  </ui-nav-bar>
+  <!-- 设置内容距离nav-bar高度占位 -->
+  <view style="height:{{NAV_HEIGHT}}"></view>
+  <ui-row-list border-left-indent style="height:{{NAV_HEIGHT}}">
+    <ui-row height="40">
+      <ui-col vertical-align="middle">
+        小圆点badge
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge custom-style="padding: 3px;"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col vertical-align="middle">
+        圆点badge
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col vertical-align="middle">
+        数字badge(一位数)
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge text="9"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col vertical-align="middle">
+        数字badge(两位数)
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge text="99"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col span="10" vertical-align="middle">
+        数字badge，超出99时显示99+
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge text="999"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col span="10" vertical-align="middle">
+        文字badge
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge text="消息"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col vertical-align="middle">
+        自定义样式
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge text="62" custom-style="{{customStyle}}"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col span="10" vertical-align="middle">
+        自定义样式，超出999时显示999+
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge custom-style="{{customStyle}}" text="1200" maxlength="3"></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="40">
+      <ui-col span="10" vertical-align="middle">
+        自定义样式，圆角弧度和背景
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <ui-badge custom-style="{{customStyle2}}" text="VIP" maxlength = 3></ui-badge>
+      </ui-col>
+    </ui-row>
+    <ui-row height="80">
+      <ui-col vertical-align="middle" span="8">
+        自定义样式，白色边框和背景
+      </ui-col>
+      <ui-col align="right" vertical-align="middle" space-right="10">
+        <view class="maoyan">
+          <image src="http://images.uileader.com/20180318/0b1707e5-654f-4aa5-851e-a963359706d3.png" width="48"></ui-image>
+          <ui-badge custom-style="{{customStyle3}}" text="5折"></ui-badge>
+        </view>
+      </ui-col>
+    </ui-row>
+  </ui-row-list>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "角标"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    customStyle:{
+      'background-color': '#00bc32'
+    },
+    customStyle2:{
+      'background-color': '#fa6e2d',
+      'border-radius': '3px',
+      'padding': '3px 8px'
+    },
+    customStyle3:{
+      'background-color': '#39f',
+      'position': 'absolute',
+      'top': '-5px',
+      'right': '-15px',
+      'border': '1px solid #fff'
+    }
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+.green {
+  background-color: #00bc32;
+}
+
+.vip {
+  background-color: #fa6e2d;
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+
+.maoyan {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 10px;
+  .icon-badge {
+    background-color: #39f;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    border: 1px solid #fff;
+  }
+}
+</style>

@@ -1,0 +1,436 @@
+<!--tagGroup.ui-->
+<template>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>标签组</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="sample_title">标签展示</view>
+    <view style="padding: 10px 10px;">
+      <ui-tags data="{{list0}}"></ui-tags>
+    </view>
+    
+    <view class="sample_title">标签点击触发</view>
+    <view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list00}}" 
+        bindchange="singleTap" 
+        ></ui-tags>
+    </view>
+
+
+    <view class="sample_title">点击删除</view>
+    <view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list3}}" 
+        bindchange="delate"
+        icon-position="right"
+        icon-size="12"
+        ></ui-tags>
+    </view>
+
+    <view class="sample_title">等宽标签</view>
+    <view style="padding: 10px 0 5px 0;">
+     <ui-tags 
+        data="{{list8}}" 
+        fixed-width
+        bindchange="multipleTap2" 
+        ></ui-tags>
+    </view>
+
+   
+
+    <view class="sample_title">多项选择</view>
+    <view style="padding: 10px 10px;">
+      <ui-tags 
+        data="{{list2}}" 
+        fixed-width
+        fixed-space="15"
+        bindchange="multipleTap" 
+        icon-position="right" 
+        ></ui-tags>
+      <button class="delAll" fullWidth="{{fullWidth}}" bindtap="cancel">清空</button>
+      <button class="sure" fullWidth="{{fullWidth}}" bindtap="sure">确定</button>
+    </view>
+
+  
+    
+</template>
+  
+
+<script>
+const tagStyle0 = `
+  border: 1px solid #3693E8;
+  background: #ffffff;
+  color: #3693E8;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;`
+
+  // const tagStyle0 = 'border: 1px solid #3693E8;background: #ffffff;color: #3693E8;padding: 0 5px;border-radius: 10px;text-align: center;height: 25px;display: flex;justify-content: center;align-items: center;line-height: 20px;'
+
+const tagStyle00 = `background: #efefef;
+  color: #555;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+`
+
+
+const selectStyle = `background: #54d09f;
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+`
+
+const selectStyle2 = `
+  background: #54d09f;
+  color: #fff;
+  padding: 0 5px;
+  text-align: center;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  border-radius: 3px;
+`
+
+const tagStyle1 =`
+  background: #EFEFEF;
+  color: #666;
+  padding: 5px 20px;
+  border-radius: 14px;
+`
+
+const tagStyle2 = `
+  border:1px solid #ccc;
+  background: #fff;
+  color: #666;
+  padding: 0 5px;
+  text-align: center;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+`
+
+const selectStyle3 = `
+  background: #ffe5de;
+  border:1px solid #ccc;
+  color: #666;
+  padding: 0 5px;
+  text-align: center;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+`
+
+const tagStyle3 = `
+  background: url('http://images.uileader.com/20180410/e32e7f69-42ea-43f8-ae9d-a666561ba502.png') no-repeat 64px center ;
+  border: 1px solid #ff5800;
+  color: #ff5800;
+  padding: 0 5px;
+  border-radius: 10px;
+  text-align: left;
+  height: 25px;
+  display: flex;
+  width:84px;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  background-size:12px;
+`
+
+
+const tagStyle6 = `
+  border: 1px solid #f1f2f3;
+  border-radius: 3px;
+  text-align: center;
+  height: 25px;
+  line-height: 24px;
+`
+
+export default {
+  config: {
+    "navigationBarTitleText": "标签组"
+  },
+  data :{
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    list0: [{
+      text: '速度与激情8',
+      tagStyle: 'border: 1px solid #3693E8;background: #ffffff;color: #3693E8;padding: 0 5px;border-radius: 10px;text-align: center;height: 25px;display: flex;justify-content: center;align-items: center;line-height: 20px;'
+    }, {
+      text: '铁道飞虎',
+      tagStyle: tagStyle0
+    }, {
+      text: '罗曼蒂克消亡史',
+      tagStyle: tagStyle0
+    }, {
+      text: '绑架者',
+      tagStyle: tagStyle0
+    }, {
+      text: '地心引力',
+      tagStyle: tagStyle0
+    }, {
+      text: '一条狗的使命',
+      tagStyle: tagStyle0
+    }],
+    list00: [{
+      text: '速度与激情8',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: true
+    }, {
+      text: '铁道飞虎',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: false
+    }, {
+      text: '罗曼蒂克消亡史',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: false
+    }, {
+      text: '绑架者',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: false
+    }, {
+      text: '地心引力',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: false
+    }, {
+      text: '一条狗的使命',
+      tagStyle: tagStyle00,
+      tagSelectedStyle: selectStyle,
+      checked: false
+    }],
+    list1: [{
+      text: '热门',
+      tagStyle: tagStyle1
+    }, {
+      text: '小吃快餐',
+      tagStyle: tagStyle1
+    }, {
+      text: '面包甜点',
+      tagStyle: tagStyle1
+    }, {
+      text: '北京菜',
+      tagStyle: tagStyle1
+    }, {
+      text: '川菜',
+      tagStyle: tagStyle1
+    }, {
+      text: '韩国料理',
+      tagStyle: tagStyle1
+    }, {
+      text: '江浙菜',
+      tagStyle: tagStyle1
+    }, {
+      text: '江浙菜',
+      tagStyle: tagStyle1
+    }],
+
+    list2: [{
+      text: '微型车',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: true
+    }, {
+      text: '小型车',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: true
+    }, {
+      text: '紧凑型',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: false
+    }, {
+      text: '中型车',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: false
+    }, {
+      text: '大中型',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: false
+    }, {
+      text: '豪华车',
+      tagStyle: tagStyle2,
+      tagSelectedStyle: selectStyle3,
+      icon: 'plus2',
+      iconSelected: 'duigou',
+      checked: false
+    }],
+
+    list3: [{
+      text: '大众',
+      tagStyle: tagStyle3,
+      icon: 'close'
+    }, {
+      text: '朗逸',
+      tagStyle: tagStyle3,
+      icon: 'close'
+    }, {
+      text: '10-15万',
+      tagStyle: tagStyle3,
+      icon: 'close'
+    }],
+    list8: [
+      {
+        text: '早餐', tagStyle: tagStyle6, tagSelectedStyle: selectStyle2, checked: false
+      },
+      {
+        text: '午餐', tagStyle: tagStyle6, tagSelectedStyle: selectStyle2, checked: false
+      },
+      {
+        text: '下午茶', tagStyle: tagStyle6, tagSelectedStyle: selectStyle2, checked: false
+      },
+      {
+        text: '晚餐', tagStyle: tagStyle6, tagSelectedStyle: selectStyle2, checked: false
+      },
+      {
+        text: '夜宵', tagStyle: tagStyle6, tagSelectedStyle: selectStyle2, checked: false
+      }
+    ],
+    fullWidth: false,
+    showPop: true,
+    selectValue: []
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  singleTap (e) {
+    let opt = e.detail.index
+    wx.showToast({
+      title: this.data.list00[opt].text,
+      icon:'none'
+    })
+    this.data.list00.forEach((item, index) => {
+      item.checked = (index === opt)
+    })
+    this.setData({
+      list00:this.data.list00
+    })
+  },
+  multipleTap (e) {
+    let opt = e.detail.index
+    this.data.list2[opt].checked = !this.data.list2[opt].checked
+    this.setData({
+      list2:this.data.list2
+    })
+  },
+  sure () {
+    var a = this.data.list2.filter((item, index) => {
+      return item.checked
+    })
+    
+    this.selectValue = a
+    var str = a.map((item, index) => {
+      return item.text
+    }).join(',')
+    this.setData({
+      list2:this.data.list2
+    })
+    wx.showToast({
+      title: str || '未选择任何标签',
+      icon:'none'
+    })
+
+  },
+  cancel () {
+    this.data.list2.forEach((item, index) => {
+      item.checked = false
+    })
+    this.setData({
+      list2:this.data.list2
+    })
+  },
+  delate (e) {
+    let opt = e.detail.index
+    this.data.list3 = this.data.list3.filter((item, index) => {
+      return index != opt
+    })
+    var str = this.data.list3.map((item, index) => {
+      return item.text
+    }).join(',')
+    wx.showToast({
+      title: str ? `还剩：` + str : '该组已经没有标签',
+      icon:'none'
+    })
+    this.setData({
+      list3: this.data.list3
+    })
+  },
+
+  multipleTap2 (e) {
+    let index = e.detail.index
+    this.data.list8[index].checked = !this.data.list8[index].checked
+    this.setData({
+      list8:this.data.list8
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+.delAll{
+  display: inline-block;
+  width: 48%;
+  margin-right:2%;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  width: 48%;
+}
+.sure{
+  display: inline-block;
+  width: 48%;
+  font-size: 12px;
+  background: #FD5623;
+  border:1px solid #FD5623;
+  color: #fff;
+}
+</style>

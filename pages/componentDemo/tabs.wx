@@ -1,0 +1,454 @@
+<!--tab-view.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>自定义tabs样式</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60"></ui-col>
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <ui-divider>基本使用</ui-divider>
+    <ui-tabs index="{{ current1 }}" bindchange="handleChange1">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+    <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
+      <swiper-item>
+        <view>内容 1</view>
+      </swiper-item>
+      <swiper-item>
+        <view>内容 2</view>
+      </swiper-item>
+    </swiper>
+
+
+    <ui-divider>ink-bar</ui-divider>
+    <ui-tabs index="{{ current2 }}" bindchange="handleChange2" ink-bar active-tab-style="{{activeTabStyle}}" ink-bar-style="{{inkBarStyle}}">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+      <ui-tab>选项卡三</ui-tab>
+      <ui-tab>选项卡四</ui-tab>
+    </ui-tabs>
+
+    <swiper class="content"  current="{{ current2 }}" bindchange="handleContentChange2">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+      <swiper-item>
+        内容三
+      </swiper-item>
+      <swiper-item>
+        内容四
+      </swiper-item>
+    </swiper>
+
+
+
+    <ui-divider>居中显示</ui-divider>
+    <view style="background-color:#f5f5f5">
+      <view style="width:120px;margin:0 auto">
+        <ui-tabs  width="120" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current3 }}"  bindchange="handleChange3">
+          <ui-tab>
+            <view class="item item-right">精选</view>
+          </ui-tab>
+          <ui-tab>
+            <view class="item item-left">订阅</view>
+          </ui-tab>
+        </ui-tabs>
+      </view>
+    </view>
+    <swiper class="content" current="{{ current3 }}" bindchange="handleContentChange3">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+    </swiper>
+
+    <ui-divider>结合角标使用</ui-divider>
+    <view style="background-color:#f5f5f5">
+    <view style="width:120px;margin:0 auto">
+      <ui-tabs width="120" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current4 }}"  bindchange="handleChange4">
+      <ui-tab>
+        <view class="item item-right">精选</view>
+      </ui-tab>
+      <ui-tab>
+        <view class="item item-left">
+          订阅
+          <ui-badge custom-style="padding: 3px;top:-5px" wx:if="{{showBadge3}}"></ui-badge>
+        </view>
+        </ui-tab>
+      </ui-tabs>
+    </view>
+    </view>
+    
+
+    <swiper class="content" current="{{ current4 }}" bindchange="handleContentChange4">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+    </swiper>
+
+    <ui-divider>与图标结合使用：图标在左</ui-divider>
+    <ui-tabs class="type-icon" index="{{ current5 }}"  bindchange="handleChange5">
+      <ui-tab>
+        <view>
+          <ui-icon type="mail"></ui-icon>邮件
+        </view>
+      </ui-tab>
+      <ui-tab>
+        <view>
+          <ui-icon type="api-data"></ui-icon>存储
+        </view>
+      </ui-tab>
+      <ui-tab>
+        <view>
+          <ui-icon type="api-network"></ui-icon>网络
+        </view>
+      </ui-tab>
+    </ui-tabs>
+
+    <swiper class="content" current="{{ current5 }}" bindchange="handleContentChange5">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+      <swiper-item>
+        内容三
+      </swiper-item>
+    </swiper>
+
+    <ui-divider>与图标结合使用：图标在右</ui-divider>
+    <ui-tabs class="type-icon" index="{{ current6 }}"  bindchange="handleChange6">
+      <ui-tab>
+        <view>
+          邮件<ui-icon type="mail"></ui-icon>
+        </view>
+      </ui-tab>
+      <ui-tab>
+        <view>
+          存储<ui-icon type="api-data"></ui-icon>
+        </view>
+      </ui-tab>
+      <ui-tab>
+        <view>
+          网络<ui-icon type="api-network"></ui-icon>
+        </view>
+      </ui-tab>
+    </ui-tabs>
+
+    <swiper class="content" current="{{ current6 }}" bindchange="handleContentChange6">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+      <swiper-item>
+        内容三
+      </swiper-item>
+    </swiper>
+
+    <ui-divider>外部触发切换</ui-divider>
+    <ui-tabs index="{{ current7 }}"  bindchange="handleChange7">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+
+    <swiper class="content" current="{{ current7 }}" bindchange="handleContentChange7">
+      <swiper-item>
+        <button type="primary" data-index="1" bindtap="handleChangeBtn7">切换到第二项</button>
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+    </swiper>
+
+    <ui-divider>只支持点击标签切换</ui-divider>
+    <ui-tabs index="{{ current8 }}"  bindchange="handleChange8">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+    <view class="swiper_content" wx:if="{{ show8_1 }}">选项卡一</view>
+    <view class="swiper_content" wx:if="{{ show8_2 }}">选项卡二</view>
+
+
+    <ui-divider>自定义颜色</ui-divider>
+    <ui-tabs class="type-color" index="{{ current9 }}"  bindchange="handleChange9" active-tab-style="{{activeTabStyle2}}">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+    </ui-tabs>
+
+    <swiper class="content" current="{{ current9 }}" bindchange="handleContentChange9">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+    </swiper>
+
+
+
+    <ui-divider>超出屏幕宽度</ui-divider>
+    <ui-tabs index="{{ current11 }}" bounce="{{false}}"  bindchange="handleChange11">
+      <ui-tab>选项卡一</ui-tab>
+      <ui-tab>选项卡二</ui-tab>
+      <ui-tab>选项卡三</ui-tab>
+      <ui-tab>选项卡四</ui-tab>
+      <ui-tab>选项卡五</ui-tab>
+      <ui-tab>选项卡六</ui-tab>
+      <ui-tab>选项卡七</ui-tab>
+      <ui-tab>选项卡八</ui-tab>
+    </ui-tabs>
+
+    <swiper class="content" current="{{ current11 }}" bindchange="handleContentChange11">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+      <swiper-item>
+        内容三
+      </swiper-item>
+      <swiper-item>
+        内容四
+      </swiper-item>
+      <swiper-item>
+        内容五
+      </swiper-item>
+      <swiper-item>
+        内容六
+      </swiper-item>
+      <swiper-item>
+        内容七
+      </swiper-item>
+      <swiper-item>
+        内容八
+      </swiper-item>
+    </swiper>
+  </view>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "自定义样式"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    activeTabStyle:{
+      'color': '#e60012',
+    },
+    activeTabStyle2:{
+      'color': '#e60012',
+      'border-bottom':'1px solid #e60012'
+    },
+    inkBarStyle:{
+      'border-bottom': '1px solid red',
+       'width': '60%',
+       'color':'red'
+    },
+    tabStyle:{
+      'flex':'0 0 40px'
+    },
+    current1: 0,
+    current2: 0,
+    current3: 0,
+    current4: 0,
+    current5: 0,
+    current6: 0,
+    current7: 0,
+    current8: 0,
+    current9: 0,
+    current11: 0,
+    current12: 0,
+    showBadge3: true,
+    show8_1:true,
+    show8_2:false,
+    customStyle:{
+      'background-color':'red'
+    }
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  handleChange1 (e) {
+    let index = e.detail.index
+    this.setData({
+      current1:index
+    })
+  },
+  handleContentChange1 (e) {
+    let current = e.detail.current
+    this.setData({
+      current1:current
+    })
+  },
+  handleChange2 (e) {
+    let index = e.detail.index
+    this.setData({
+      current2:index
+    })
+  },
+  handleContentChange2 (e) {
+    let current = e.detail.current
+    this.setData({
+      current2:current
+    })
+  },
+  handleChange3 (e) {
+    let index = e.detail.index
+    this.setData({
+      current3:index
+    })
+  },
+  handleContentChange3 (e) {
+    let current = e.detail.current
+    this.setData({
+      current3:current
+    })
+  },
+  handleChange4 (e) {
+    let index = e.detail.index
+    if(index === 1){
+      this.setData({
+        showBadge3:false
+      })
+    }
+    this.setData({
+      current4:index
+    })
+  },
+  handleContentChange4 (e) {
+    let current = e.detail.current
+    this.setData({
+      current4:current
+    })
+  },
+  handleChange5 (e) {
+    let index = e.detail.index
+    this.setData({
+      current5:index
+    })
+  },
+  handleContentChange5 (e) {
+    let current = e.detail.current
+    this.setData({
+      current5:current
+    })
+  },
+   handleChange6 (e) {
+    let index = e.detail.index
+    this.setData({
+      current6:index
+    })
+  },
+  handleContentChange6 (e) {
+    let current = e.detail.current
+    this.setData({
+      current6:current
+    })
+  },
+  handleChange7 (e) {
+    let btnIndex = e.target.dataset.index
+    let index = e.detail.index
+    this.data.current7 = index
+    this.setData({
+      current7:this.data.current7
+    })
+    this.setData({
+      current7:this.data.current7
+    })
+  },
+  handleChangeBtn7 (e) {
+    let btnIndex = e.target.dataset.index
+    this.data.current7 = btnIndex
+    this.setData({
+      current7:this.data.current7
+    })
+  },
+  handleContentChange7 (e) {
+    let current = e.detail.current
+    this.setData({
+      current7:current
+    })
+  },
+  handleChange8 (e) {
+    let index = e.detail.index
+    if(index){
+      this.setData({
+        show8_1:false,
+        show8_2:true
+      })
+    }else{
+      this.setData({
+        show8_1:true,
+        show8_2:false
+      })
+    }
+  },
+  handleChange9 (e) {
+    let index = e.detail.index
+    this.setData({
+      current9:index
+    })
+  },
+  handleContentChange9 (e) {
+    let current = e.detail.current
+    this.data.current9 = current
+    this.setData({
+      current9:this.data.current9
+    })
+  },
+  handleChange11 (e) {
+    let index = e.detail.index
+    this.setData({
+      current11:index
+    })
+  },
+  handleContentChange11 (e) {
+    let current = e.detail.current
+    this.setData({
+      current11:current
+    })
+  },
+  hideBadge3 () {
+    this.setData({
+      showBadge3:false
+    })
+  }
+}
+
+</script>
+
+<style lang="less">
+ui-tabs{
+  background-color: #f5f5f5;
+  padding-bottom: 1px;
+}
+.content {
+  height: 60px;
+  line-height: 60px;
+  margin:0 10px
+}
+</style>

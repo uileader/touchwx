@@ -1,0 +1,56 @@
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+    <ui-row height="46">
+      <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center">
+        <view>分隔符</view>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center" width="60">
+      </ui-col>
+    </ui-row>
+  </ui-nav-bar>
+  <view style="height:{{NAV_HEIGHT}}"></view>
+    <view>
+      <ui-divider>我是有底线的</ui-divider>
+      <ui-divider padding="20">我是有底线的</ui-divider>
+      <ui-divider color="#ff2a00">我是红色的底线</ui-divider>
+      <ui-divider color="#3399ff">我是蓝色的底线</ui-divider>
+      <ui-divider color="#a1e76a">我是绿色的底线</ui-divider>
+      <ui-divider color="#ff2a00">
+        <view style="color:#ff2a00">
+          内容也是红色的
+        </view>
+      </ui-divider>
+      <ui-divider color="#3399ff">
+        <view style="color:#3399ff">
+          内容也是蓝色的
+        </view>
+      </ui-divider>
+      <ui-divider color="#a1e76a">
+        <view style="color:#a1e76a">
+          内容也是绿色的
+        </view>
+      </ui-divider>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '分隔符'
+  },
+  data: { 
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px'
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+</script>
+
+<style>
+</style>

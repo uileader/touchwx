@@ -1,0 +1,135 @@
+<!--button.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>按钮</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+          
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+ 
+    <view class="sample_title">自定义样式</view>
+    <view class="win">
+      <button class="button-style-demo1">立即预订</button>
+      <button type="primary" loading="{{isLoading}}" bindtap="submitHandler" disabled="{{isDisable}}">{{buttonText}}</button>
+    </view>
+    
+   </view>
+</template>
+
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "按钮"
+  },
+  data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      isLoading: false,
+      buttonText: '提交',
+      isDisable: false,
+      hoverStopPropagation:true,
+      array: ['美国', '中国', '巴西', '日本'],
+      index: 0,
+  },
+  submitHandler () {
+    this.setData({
+      isLoading:true,
+      buttonText:'提交中...',
+      isDisable:true
+    })
+    // this.isLoading = true
+    // this.buttonText = '提交中...'
+    // this.isDisable = true
+    var that = this
+    setTimeout(function () {
+      // that.isLoading = false
+      // that.buttonText = '提交'
+      // that.isDisable = false
+      that.setData({
+        isLoading:false,
+        buttonText:'提交',
+        isDisable:false
+      })
+    }, 1000)
+  },
+  handleViewTap () {
+    wx.showToast({
+      title: '点击了ui-view'
+    })
+  },
+  bindPickerChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
+  handleButtonTap () {
+    wx.showToast({
+      title: '点击了ui-button'
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // button.less
+button{
+  margin: 6px 0;
+}
+.mini-button{
+  button{
+    margin-right:6px;
+  }
+}
+.win{padding:10px;}
+
+.button-style-demo1 {
+  background-color: #C01920;
+  border-radius: 20px;
+  border-color: #C01920;
+  box-shadow: 3px 3px 8px #E57A7E;
+  color: #fff;
+}
+.button-style-demo1::after{
+  border: none;
+}
+.button-style-demo2 {
+  background-color: #4A88DB;
+  color: #fff;
+}
+
+.button-style-demo3 {
+  background-color: #4A88DB;
+  color: #fff;
+  img{
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+
+.hover-btn{
+  background-color:red;
+  border-color:red;
+  color:#fff
+}
+
+.icon-search{
+  font-size:14px;
+}
+
+</style>

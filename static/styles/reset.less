@@ -1,0 +1,77 @@
+view {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+page {
+  background-color: #fff;
+  height: 100%;
+  font-size:14px;
+  line-height: 1.5;
+}
+
+image{
+    width: 100%;
+    height: 100%;
+    display:block;
+}
+
+.touchui-hover{
+  background-color: #eee !important;
+}
+
+button {
+  font-size: 14px;
+  overflow: inherit;
+  color: #1f2d3d;
+}
+
+button[type="primary"] {
+  background-color: @theme-color;
+  &[loading] {
+    background-color: @theme-color;
+  }
+  &.button-hover {
+    color: #fff;
+    background-color: darken(@theme-color, 16%);
+    opacity: 0.8;
+  }
+  &[plain] {
+    border-color: @theme-color;
+    color: @theme-color;
+
+    &.button-hover {
+      color: @theme-color;
+      border-color: @theme-color;
+      opacity: 0.8;
+    }
+  }
+  &[size="mini"] {
+    &.button-hover {
+      border-color: @theme-color !important;
+    }
+  }
+  &[disabled] {
+    background-color: lighten(@theme-color, 16%);
+  }
+}
+
+button[type="primary"][size="mini"] {
+  border-color: @theme-color !important;
+  &.button-hover {
+    border-color: @theme-color !important;
+  }
+}
+
+button[type="success"] {
+  background-color: #13ce66;
+  &.button-hover {
+    color: #fff;
+    background-color: darken(#13ce66, 8%);
+    opacity: 0.8;
+  }
+  &[plain] {
+    border-color: #13ce66;
+    color: #13ce66;
+  }
+}

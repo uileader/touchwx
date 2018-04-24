@@ -1,0 +1,20 @@
+{
+  "name": "touchui_minapp",
+  "description": "TouchUI-小程序",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "touchui-wx-components": "^1.0.6"
+  },
+  "devDependencies": {
+    "@types/weixin-app": "^1.9.0",
+    "babel-plugin-syntax-export-extensions": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "minConfig": {
+    "projectType": "application"
+  }
+}

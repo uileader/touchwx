@@ -1,0 +1,100 @@
+@import '../utils/mixins.less';
+
+.ui-col {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  height: 100%;
+
+  &.valign-top {
+    align-items: flex-start;
+  }
+
+  &.valign-bottom {
+    align-items: flex-end;
+  }
+
+  &.valign-middle {
+    align-items: center;
+  }
+
+  &.align-left {
+    justify-content: flex-start;
+  }
+
+  &.align-center {
+    justify-content: center;
+  }
+
+  &.align-right {
+    justify-content: flex-end;
+  }
+}
+
+.ui-col-content {
+  height: 100%;
+  min-width: 0;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.valign-top {
+    justify-content: flex-start;
+  }
+
+  &.valign-bottom {
+    justify-content: flex-end;
+  }
+
+  &.valign-middle {
+    justify-content: center;
+  }
+
+  &.align-left {
+    align-items: flex-start;
+  }
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.align-right {
+    align-items: flex-end;
+  }
+}
+
+.ui-col-border-left {
+  &:before {
+    .setLeftLine();
+  }
+}
+
+.ui-col-border-right {
+  &:after {
+    .setRightLine();
+  }
+}
+
+.ui-col-align-center {
+  text-align: center;
+}
+
+.ui-col-align-right {
+  text-align: right;
+}
+
+.loop(@n) when(@n > 0) {
+  .ui-col-@{n} {
+    float: left;
+    height: 100%;
+    width: 100%/12*@n;
+  }
+  .loop((@n - 1))
+}
+
+.loop(12);

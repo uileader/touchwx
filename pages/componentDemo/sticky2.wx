@@ -1,0 +1,93 @@
+<template>
+  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>多个吸顶容器</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+    <image
+    src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
+    style="height:{{imgHeight}}px"
+    ></image>
+    <ui-sticky scroll-top="{{ scrollTop }}" top="{{NAV_HEIGHT}}">
+      <view class="sample_title">一 前言</view>
+      <view slot="sticky">
+        <view class="sample_title">一 前言</view>
+      </view>
+    </ui-sticky>
+    <view class="content_list">
+      <view wx:for="{{ items }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+        {{ item }}
+      </view>
+    </view>
+    <ui-sticky scroll-top="{{ scrollTop }}" top="{{NAV_HEIGHT}}">
+      <view class="sample_title">二 日常沟通场景中当职场写作</view>
+      <view slot="sticky">
+        <view class="sample_title">二 日常沟通场景中当职场写作</view>
+      </view>
+    </ui-sticky>
+    <view class="content_list">
+      <view wx:for="{{items}}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+        {{ item }}
+      </view>
+    </view>
+    <ui-sticky scroll-top="{{ scrollTop }}" top="{{NAV_HEIGHT}}">
+      <view class="sample_title">三 会议活动场景中的职场写作</view>
+      <view slot="sticky">
+        <view class="sample_title">三 会议活动场景中的职场写作</view>
+      </view>
+    </ui-sticky>
+    <view class="content_list">
+      <view wx:for="{{items}}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+        {{ item }}
+      </view>
+    </view>
+</template>
+
+
+<script>
+let items = []
+for (let i = 1; i <= 30; i++) {
+  items.push(`列表项目${i}`)
+}
+  export default {
+  config: {
+    "navigationBarTitleText": "多个吸顶容器",
+    "navigationBarBorderColor": "rgba(231, 231, 231, 0.6)",
+    "navigationBarBackgroundColor":"#FFFFFF",
+    "navigationBarTextStyle":"black",
+    "navigationBarTextStyle":"black"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    items: items,
+    imgHeight: parseInt(wx.WIN_WIDTH / 1125 * 628),
+    scrollTop:0
+  },
+  onPageScroll (e) {
+    this.setData({
+      scrollTop: e.scrollTop
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  .sample_title{
+    height: 46px;
+    line-height: 46px;
+  }
+
+
+</style>

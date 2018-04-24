@@ -1,0 +1,29 @@
+@import '../utils/mixins.less';
+
+.ui-row-list {
+  position: relative;
+
+  &.ui-row-list-bordered {
+    &:before {
+      .setTopLine();
+    }
+    &:after {
+      .setBottomLine();
+    }
+  }
+
+  > .ui-row:not(:last-child) {
+    &:after {
+      .setBottomLine();
+    }
+  }
+
+  &.ui-row-list-border-left-indent {
+    padding-left: 15px;
+  }
+
+  &.ui-row-list-border-indent {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

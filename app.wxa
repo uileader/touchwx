@@ -1,0 +1,217 @@
+<template>
+  <page></page>
+</template>
+
+<script>
+import system from './static/utils/system'
+export default {
+  config: {
+    usingComponents: {},
+    pages: [
+      'pages/index',
+      'pages/home/viewList',
+      'pages/home/viewList2',
+      'pages/home/changeList',
+      'pages/home/modalList',
+      'pages/home/formList',
+      'pages/home/formList3',
+      'pages/home/textList',
+      'pages/home/mediaCompList',
+      'pages/home/graphicalList',
+      'pages/home/mapList',
+      'pages/home/mapList2',
+      'pages/home/mapList3',
+      'pages/home/graphicalList2',
+      'pages/componentDemo/slider',
+      'pages/componentDemo/ruler',
+      'pages/componentDemo/cascader',
+      'pages/componentDemo/checklist',
+      'pages/componentDemo/star',
+      'pages/componentDemo/mask/mask',
+      'pages/componentDemo/mask/iconNav',
+      'pages/componentDemo/mask/maskTip',
+      'pages/componentDemo/mask/maskGuide',
+      'pages/componentDemo/popup',
+      'pages/componentDemo/button',
+      'pages/componentDemo/row',
+      'pages/componentDemo/rowImg',
+      'pages/componentDemo/rowList',
+      'pages/componentDemo/swipeOut',
+      'pages/componentDemo/fixedView',
+      'pages/componentDemo/fixedView2',
+      'pages/componentDemo/sticky',
+      'pages/componentDemo/sticky2',
+      'pages/componentDemo/sticky3',
+      'pages/componentDemo/swiper',
+      'pages/componentDemo/accordion',
+      'pages/componentDemo/summary',
+      'pages/componentDemo/indexList',
+      'pages/componentDemo/indexList1',
+      'pages/componentDemo/indexList4',
+      'pages/componentDemo/calendar',
+      'pages/componentDemo/calendar2',
+      'pages/componentDemo/calendar3',
+      'pages/componentDemo/v-calendar',
+      'pages/componentDemo/v-calendar2',
+      'pages/componentDemo/v-calendar3',
+      'pages/componentDemo/badge',
+      'pages/componentDemo/tabs',
+      'pages/componentDemo/tabs2',
+      'pages/componentDemo/tabs3',
+      'pages/componentDemo/timeline',
+      'pages/componentDemo/timeline2',
+      'pages/componentDemo/timeline3',
+      'pages/componentDemo/vtabs',
+      'pages/componentDemo/divider',
+      'pages/componentDemo/blur',
+      'pages/componentDemo/blur3',
+      'pages/componentDemo/segment',
+      'pages/componentDemo/segment2',
+      'pages/componentDemo/tags',
+      'pages/componentDemo/star',
+      'pages/componentDemo/icon',
+      'pages/componentDemo/stepper',
+      'pages/home/about',
+      'pages/componentDemo/countDown',
+      'pages/componentDemo/countUp',
+      'pages/componentDemo/roller',
+      'pages/componentDemo/miniStar',
+      'pages/componentDemo/map/mapDemo',
+      'pages/componentDemo/map/trajectory',
+      'pages/componentDemo/map/getLocation',
+      'pages/componentDemo/mapsdk/interestPointAroud',
+      'pages/componentDemo/mapsdk/mapSearchTips',
+      'pages/componentDemo/mapsdk/distanceCalculation',
+      'pages/componentDemo/mapsdk/routePlanning',
+      'pages/componentDemo/mapsdk/drawStaticMap',
+      'pages/componentDemo/mapsdk/mapComprehensive',
+      'pages/componentDemo/mapService/tencentmap',
+      'pages/componentDemo/mapService/mapSearchInput',
+      'pages/componentDemo/map/mapDraw',
+      'pages/componentDemo/constant',
+      'pages/componentDemo/styleLib',
+      'pages/componentDemo/showAlert',
+      'pages/home/apiList',
+      'pages/componentDemo/showConfirm'
+    ],
+    window: {
+      navigationStyle: 'custom',
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#efefef',
+      navigationBarBackgroundColor: '#ffffff',
+      navigationBarTitleText: 'TouchUI',
+      navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#7a7e83',
+      selectedColor: '#39f',
+      backgroundColor: '#fff',
+      list: [{
+          pagePath: 'pages/index',
+          iconPath: 'images/com.png',
+          selectedIconPath: 'images/com1.png',
+          text: '组件'
+        },
+        {
+          pagePath: 'pages/home/about',
+          iconPath: 'images/user.png',
+          selectedIconPath: 'images/user1.png',
+          text: '关于'
+        }
+      ]
+    },
+    networkTimeout: {
+      request: 10000
+    },
+    theme: {
+      'theme-color': '#3399ff'
+    }
+  },
+  globalData: {},
+
+  onLaunch() {
+    system.attachInfo()
+  },
+  onShow() {},
+  onHide() {}
+}
+</script>
+
+<style lang="less">
+@import './static/styles/index.less';
+
+page {
+  font-size: 14px;
+}
+
+image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.touchui-hover {
+  background-color: #eee !important;
+}
+
+// 示例列表样式
+.sample_list {
+  .ui-row {
+    font-size: 14px;
+    height: 46px;
+    line-height: 46px;
+    color: #333;
+    padding: 0 15px;
+  }
+  .group-title {
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #168AFD;
+    .sign {
+      width: 5px;
+      height: 16px;
+      background-color: #168AFD;
+      border-radius: 5px;
+    }
+    .ui-row {
+      padding: 0 10px;
+      color: #168AFD;
+      view {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// 示例title和内容
+.sample_title {
+  background-color: #F7F9FB;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 40px;
+  padding-left: 20px;
+}
+
+.sample_content {
+  padding: 10px 20px;
+  line-height: 30px;
+}
+
+.content_list {
+  list-style: none;
+  background-color: #fff;
+  view {
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 1px solid #eee;
+  }
+  .grey-bg {
+    background-color: #f5f5f5;
+  }
+}
+</style>

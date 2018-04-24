@@ -1,0 +1,281 @@
+<template>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>纵向日历</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="margin-top:{{NAV_HEIGHT}}"></view>
+        <!-- 双选，默认不选 -->
+        <view class="sample_title">双选，默认不选</view>
+        <view class="win">
+        <ui-row>
+          <ui-col width="30" vertical-align="middle">
+            <ui-icon type="store"></ui-icon>
+          </ui-col>
+          <ui-col bindtap="rangeCalendaropen">
+            <ui-row height="15">
+              <ui-col align="left" class="smalltitle">入住</ui-col>
+            </ui-row>
+            <ui-row height="27" border-bottom style="padding-bottom:10px">
+              <ui-col align="left">{{rangestart}}</ui-col>
+              <ui-col width="35" align="center">
+                <text class="smalltitle2" wx:show="{{differShow}}">{{differ}}晚</text>
+              </ui-col>
+            </ui-row>
+          </ui-col>
+          <ui-col bindtap="rangeCalendaropen" vertical-align="middle">
+              <ui-row height="15" >
+                  <ui-col space-right="25" align="right" class="smalltitle">离店</ui-col>
+                </ui-row>
+                <ui-row height="27" border-bottom style="padding-bottom:10px">
+                  <ui-col space-right="25" align="right">{{rangeend}}</ui-col>
+                </ui-row>
+          </ui-col>
+          <view style="position:absolute;right:0">
+              <ui-icon type="arrow-right" size="12"></ui-icon>
+          </view>
+        </ui-row>
+        </view>
+      
+        <!-- 双选，默认不选结束 -->
+        <!-- 双选，默认选中 -->
+        <view class="sample_title">双选，默认选中</view>
+        <view class="win">
+            <ui-row>
+                <ui-col width="30" vertical-align="middle">
+                  <ui-icon type="store"></ui-icon>
+                </ui-col>
+                <ui-col bindtap="rangeCalendarDefaultOpen">
+                  <ui-row height="15">
+                    <ui-col align="left" class="smalltitle">入住</ui-col>
+                  </ui-row>
+                  <ui-row height="27" border-bottom style="padding-bottom:10px">
+                    <ui-col align="left">{{rangestart2}}</ui-col>
+                    <ui-col width="35" align="center">
+                      <text class="smalltitle2">{{differ2}}晚</text>
+                    </ui-col>
+                  </ui-row>
+                </ui-col>
+                <ui-col bindtap="rangeCalendarDefaultOpen" vertical-align="middle">
+                    <ui-row height="15" >
+                        <ui-col space-right="25" align="right" class="smalltitle">离店</ui-col>
+                      </ui-row>
+                      <ui-row height="27" border-bottom style="padding-bottom:10px">
+                        <ui-col space-right="25" align="right">{{rangeend2}}</ui-col>
+                      </ui-row>
+                </ui-col>
+                <view style="position:absolute;right:0">
+                    <ui-icon type="arrow-right" size="12"></ui-icon>
+                </view>
+              </ui-row>
+        </view>
+        <!-- 双选，默认选中结束 -->
+        <view class="sample_title">单选</view>
+        <view class="win">
+        <ui-row height="46" space-top="15" bindtap="radioCalendaropen">
+            <ui-col width="30" vertical-align="middle">
+              <ui-icon type="store"></ui-icon>
+            </ui-col>
+            <ui-col>
+              <ui-row height="15">
+                <ui-col align="left" class="smalltitle">时租房（仅限一天）</ui-col>
+              </ui-row>
+              <ui-row border-bottom style="padding-bottom:10px">
+                <ui-col align="left">{{radioMonth}}月{{radioDay}}日</ui-col>
+                <ui-col width="25">
+                </ui-col>
+              </ui-row>
+            </ui-col>
+            <ui-col width="30" vertical-align="middle" align="right" style="border-bottom:1px solid #ddd;">
+                <ui-icon type="arrow-right" size="12"></ui-icon>
+            </ui-col>
+          </ui-row>
+        </view>
+
+        <!-- 单选结束 -->
+        <view class="win">
+            <ui-row space-top="15">
+              <button class="btnyd">立即预订</button>
+            </ui-row>
+        </view>       
+    </view>
+  </template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "纵向日历"
+    },
+    data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      statusBarHeight: wx.STATUS_BAR_HEIGHT,
+      headerHeight: wx.DEFAULT_HEADER_HEIGHT,
+      radioCalendar: false,
+      radioDate: '',
+      radioMonth: '',
+      radioDay: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeCalendar: false,
+      rangeCalendarDefault: false,
+      // 时间差
+      differ: '',
+      differ2: '',
+      differShow: false,
+      rangestart: '',
+      rangeend: '',
+      rangestart2: '',
+      rangeend2: '',
+      height: wx.WIN_HEIGHT
+    },
+    radioinit (thisdate) {
+      this.data.dateobj.radioDate = thisdate
+      this.data.dateobj.radioDate = thisdate.split('/')
+      this.data.radioDate = this.data.dateobj.radioDate
+      this.data.radioMonth = this.data.dateobj.radioDate[1]
+      this.data.radioDay = this.data.dateobj.radioDate[2]
+      this.setData({
+        radioDate:thisdate,
+        radioMonth:this.data.dateobj.radioDate[1],
+        radioDay:this.data.dateobj.radioDate[2]
+      })
+      
+    },
+   
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    radioCalendaropen () {
+      // this.setData({
+      //   radioCalendar:true
+      // })
+      wx.navigateTo({
+        url: '/pages/componentDemo/v-calendar3'
+      })
+    },
+    // 双选打开
+    rangeCalendaropen (state) {
+      // this.setData({
+      //   rangeCalendar:true
+      // })
+      wx.navigateTo({
+        url: '/pages/componentDemo/v-calendar'
+      })
+    },
+    rangeCalendarDefaultOpen () {
+      wx.navigateTo({
+        url: '/pages/componentDemo/v-calendar2'
+      })
+    },
+    // 范围选择，根据选择日期，计算几晚
+    calculationDays () {
+      let start, end
+      start = Date.parse(this.data.dateobj.rangedate[0])
+      end = Date.parse(this.data.dateobj.rangedate[1])
+      this.data.differ = Math.floor((end - start) / (24 * 3600 * 1000))
+      this.data.differShow = true
+      this.setData({
+        differ:this.data.differ,
+        differShow:true
+      })
+    },
+    // 默认选中的。范围选择，根据选择日期，计算几晚
+    calculationDays2 () {
+      let start, end
+      start = Date.parse(this.data.dateobj.rangedate2[0])
+      end = Date.parse(this.data.dateobj.rangedate2[1])
+      this.data.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
+      this.setData({
+        differ2:this.data.differ2
+      })
+    },
+    onLoad () {
+      // 计算时间范围
+      let radiodate = new Date()
+      let rangedate = new Date()
+      let rangedate2 = new Date()
+      this.radioDate = this.format(Date.parse(radiodate))
+      let start, end, defaultStart, defaultEnd
+      start = this.format(rangedate.setMonth(new Date().getMonth()))
+      end = this.format(rangedate.setMonth(new Date().getMonth() + 6))
+      start = start.substring(0, 7)
+      end = end.substring(0, 7)
+      this.data.monthrange.push(start, end)
+      defaultStart = this.format(rangedate2.setDate(new Date().getDate()))
+      defaultEnd = this.format(rangedate2.setDate(new Date().getDate() + 2))
+      this.data.defaultMonthrange.push(defaultStart, defaultEnd)
+      console.log(this.data.defaultMonthrange)
+      
+      this.data.rangestart2 = this.data.defaultMonthrange[0]
+      this.data.rangeend2 = this.data.defaultMonthrange[1]
+
+      this.setData({
+        rangestart2:this.data.rangestart2,
+        rangeend2:this.data.rangeend2,
+        monthrange:this.data.monthrange,
+        defaultMonthrange:this.data.defaultMonthrange
+      })
+      let date = new Date()
+      this.radioinit(this.format(date))
+      
+    },
+    navigateBack () {
+      wx.navigateBack()
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+  // calendar2.less
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+  }
+  }
+  .win{
+    padding:10px 30px; 
+  }
+  .smalltitle{
+    font-size:12px;
+    color:#666
+  }
+  .smalltitle2{
+    background-color:#ebc7c8;
+    color: #C01920;
+    padding:0px 3px;
+    border-radius: 5px;
+    font-size:12px;
+  }
+  
+  .btnyd {
+    width:100%;
+    background-color: #C01920;
+    border-radius: 20px;
+    border-color: #C01920;
+    box-shadow: 3px 3px 8px #E57A7E;
+    color: #fff;
+  }
+  .btnyd::after{
+    border: none;
+  }
+  
+  </style>

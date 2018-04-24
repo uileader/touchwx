@@ -1,0 +1,149 @@
+<!--getLocation.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>获取位置并查看</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="sample_content">
+        <ui-row height="40" space="10">
+          <ui-col span="2" vertical-align="middle">
+            纬度： 
+          </ui-col>
+          <ui-col span="10">
+            <input type="text" value="{{latitude}}"></input>
+          </ui-col>
+        </ui-row>
+        <ui-row height="40" space="10">
+          <ui-col span="2" vertical-align="middle">
+            经度：
+          </ui-col>
+          <ui-col span="10">
+            <input type="text" value="{{longitude}}"></input>
+          </ui-col>
+        </ui-row>
+      <button type="primary" bindtap="getLocation">获取位置</button>
+      <button bindtap="openLocation">查看位置</button>
+      <view class="tips">注：PC开发环境下由于没有GPS定位模块，建议在移动设备上查看效果</view>
+    </view>
+  </view>
+</template>
+  
+
+<script>
+import amapFile from "../../../static/map/amap-wx"
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+export default {
+  config: {
+    "navigationBarTitleText": "获取位置并查看"
+  },
+  data :{
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    latitude: '',
+    longitude: '',
+    location: {},
+    hasLocation: false,
+    textDatas: {}
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  getLocation () {
+    wx.getLocation({
+      type: 'gcj02',
+      success: (res) => {
+
+        this.setData({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          },
+          longitude: res.longitude,
+          latitude: res.latitude,
+          hasLocation: true
+        })
+        this.getLocalInfo()
+      },
+      fail: (res) => {
+      }
+    })
+  },
+  getLocalInfo () {
+    var myAmapFun = new amapFile.AMapWX({ key: key })
+    myAmapFun.getRegeo({
+      location: `${this.data.longitude},${this.data.latitude}`,
+      success: (data) => {
+        console.log(data)
+        // 调用成功则将相关数据存储至textData
+        this.setData({
+          textDatas: {
+            name: data[0].regeocodeData.formatted_address,
+            address: data[0].name,
+            latitude: data[0].latitude,
+            longitude: data[0].longitude
+          }
+        })
+      },
+      fail: (info) => {
+        console.log(info)
+      }
+    })
+  },
+  openLocation () {
+    if (!this.data.hasLocation) return
+    wx.openLocation({
+      longitude: Number(this.data.longitude),
+      latitude: Number(this.data.latitude),
+      name: this.data.textDatas.name,
+      address: this.data.textDatas.address,
+      scale: 16,
+      success:function(data){
+        console.log(data)
+      },
+      fail:function(data){
+        console.log(data)
+      }
+
+    })
+    // wx.openSysMap({
+    //   latitude: Number(this.longitude),
+    //   longitude: Number(this.latitude),
+    //   name: this.textDatas.name,
+    //   success: function(res) {
+    //   },
+    //   fail: function(res) {
+    //   },
+    //   complete: function(res) {
+    //   }
+    // })
+  }
+}
+
+</script>
+
+<style lang="less">
+.tips {
+  padding: 20px 0;
+  text-align: center
+}
+button{
+  margin-top:10px;
+}
+input{
+  border:1px solid #ccc;
+  border-radius:5px;
+  line-height:36px;
+  height:36px;
+  padding-left:10px;
+}
+
+</style>

@@ -1,0 +1,206 @@
+<template>
+    <ui-nav-bar slot="nav-bar" class="nav_bar" custom-style="{{ navBarStyle }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="35" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle">
+          <ui-tabs
+          ink-bar
+          ink-bar-style="{{ inkBarStyle }}"
+          tab-style="{{tabStyle}}"
+          width="{{ width-140 }}" index="{{ current }}" bindchange="handleChange">
+            <ui-tab>
+                  <view class="">推荐</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">热点</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">视频</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">问答</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">社会</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">娱乐</view>
+            </ui-tab>
+            <ui-tab>
+                    <view class="">科技</view>
+            </ui-tab>
+            <ui-tab>
+                <view class="">汽车</view>
+            </ui-tab>
+          </ui-tabs>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="100">
+          <!-- <ui-icon type="more" size="16" color="#fff"></ui-icon> -->
+        </ui-col>
+      </ui-row>
+
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <swiper style="height:{{ contentHeight }}px" class="content" current="{{ current }}" bindchange="handleContentChange">
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items0 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </scroll-view >
+          </view>
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items1 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items2 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items3 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items4 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items5 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items6 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+      <swiper-item>
+          <scroll-view scroll-y style="height:{{DEFAULT_CONTENT_HEIGHT}}px" class="content_list">
+            <view wx:for="{{ items7 }}" class="{{index % 2 == 0 ? 'grey-bg':''}}">
+              {{ item }}
+            </view>
+          </scroll-view >
+      </swiper-item>
+
+    </swiper>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "全局使用",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle":'white',
+    "disableScroll":true
+  },
+  data : {
+    inkBarStyle:{
+      'border-bottom': '2px solid #fff', 
+      'width': '50%' ,
+      'top':'-4px'
+    },
+    tabStyle:{
+      'color':'#fff'
+    },
+    DEFAULT_CONTENT_HEIGHT:wx.DEFAULT_CONTENT_HEIGHT,
+    width:wx.WIN_WIDTH,
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    current: 0,
+    items0: [],
+    items1: [],
+    items2: [],
+    items3: [],
+    items4: [],
+    items5: [],
+    items6: [],
+    items7: [],
+    items8: [],
+    items9: [],
+    contentHeight: wx.DEFAULT_CONTENT_HEIGHT,
+    tabsWidth: wx.WIN_WIDTH - 70,
+    navBarStyle:{
+      'background-color':'#39f',
+      'color':'#fff'
+    }
+  },
+  
+  navigateBack () {
+    wx.navigateBack()
+  },
+  handleChange (e) {
+    console.log(e)
+    let index = e.detail.index
+    // this.data.current = index
+    this.setData({
+      current:index
+    })
+    // this[key] = index
+  },
+  handleContentChange (e) {
+    // this[key] = index
+    console.log(e)
+    let index = e.detail.current
+    this.setData({
+      current:index
+    })
+  },
+  onReady:function(){
+    let items0=[]
+    let items1=[]
+    let items2=[]
+    let items3=[]
+    let items4=[]
+    let items5=[]
+    let items6=[]
+    let items7=[]
+    let items8=[]
+    let items9=[]
+    for (let i = 1; i <= 100; i++) {
+      items0.push(i + ' - 推荐项目列表')
+      items1.push(i + ' - 热点项目列表')
+      items2.push(i + ' - 视频项目列表')
+      items3.push(i + ' - 问答项目列表')
+      items4.push(i + ' - 社会项目列表')
+      items5.push(i + ' - 娱乐项目列表')
+      items6.push(i + ' - 科技项目列表')
+      items7.push(i + ' - 汽车项目列表')
+
+    }
+    this.setData({
+      items0:items0,
+      items1:items1,
+      items2:items2,
+      items3:items4,
+      items4:items4,
+      items5:items5,
+      items6:items6,
+      items7:items7
+    })
+  },
+}
+
+</script>
+
+<style lang="less">
+
+
+</style>

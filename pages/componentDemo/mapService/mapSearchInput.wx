@@ -1,0 +1,151 @@
+<!--mapSearchInput.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>地图绘制</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="content">
+      <view class="btn-area">
+        <ui-row height="50" border-bottom>
+          <ui-col width="50" align="center" vertical-align="middle">
+            <ui-icon type="building" size="24" color="#FD8137"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">{{ text }}</ui-col>
+          <ui-col width="70" align="center" vertical-align="middle" bindtap="reserveAddr">
+              <image src="{{src}}" style="width:15px;height:15px;"></image>
+              <view>我的位置</view>
+          </ui-col>
+        </ui-row>
+        <ui-row height="50">
+          <ui-col width="50" align="center" vertical-align="middle">
+            <ui-icon type="qn-activity" size="24" color="#FD8137"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">09月27日</ui-col>
+          <ui-col vertical-align="middle">今天</ui-col>
+          <ui-col vertical-align="middle">明天</ui-col>
+          <ui-col vertical-align="middle">共一晚</ui-col>
+        </ui-row>
+      </view>
+      <view class="btn-area">
+        <ui-row height="50">
+          <ui-col width="50" align="center" vertical-align="middle">
+            <ui-icon type="magnifier" size="24" color="#FD8137"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle">
+            <input placeholder="景点/商圈/关键词" placeholder-style="color:#BBBBBB"></input>
+          </ui-col>
+        </ui-row>
+      </view>
+      <button class="find" bindtap="toast">查找酒店</button>
+    </view>
+  </view>
+</template>
+
+
+<script>
+  // mapSearchInput.js
+import amapFile from "../../../static/map/amap-wx"
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+export default {
+  config: {
+    "navigationBarTitleText": "获取粗略与精确定位"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    text: '定位中…',
+    latitude: '',
+    longitude: '',
+    location: '',
+    src: '/images/pos.png'
+  },
+  fn () {
+    wx.getLocation({
+      type: 'wgs84',
+      success: (res) => {
+        this.data.location = res.latitude+','+ res.longitude
+        console.log(this.data.location,'location')
+      },
+      fail: (err) => {
+      }
+    })
+  },
+  reserveAddr () {
+    console.log(this.data.location)
+    wx.request({
+      url: 'https://apis.map.qq.com/ws/geocoder/v1/?', 
+      data: {
+        location:this.data.location,
+        key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+      },
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          text:res.data.result.address
+        })
+      }
+    })
+  },
+  toast () {
+    wx.showToast({ title: '点击“我的位置”按钮测试',icon:'none' })
+  },
+  getPosition(){
+    wx.request({
+      url: 'https://apis.map.qq.com/ws/location/v1/ip', 
+      data: {
+        key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+      },
+      success: (res) => {
+        console.log(res.data.result.ad_info.city)
+        // this.text = res.data.result.ad_info.city
+        this.setData({
+          text:res.data.result.ad_info.city
+        })
+      }
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  onReady () {
+    this.getPosition()
+    this.fn()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mapSearchInput.less
+.content{
+  padding: 15px;
+}
+.btn-area {
+  // padding: 0px 15px;
+  box-shadow: 0 0 10px 1px #EBEBEB;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  .ui-image{
+    margin-bottom: 5px;
+  }
+  .ui-input{
+    border: 0;
+  }
+}
+.find{
+  background-color: #FD8137;
+  border: 0;
+  color: #fff;
+  outline: none;
+}
+</style>

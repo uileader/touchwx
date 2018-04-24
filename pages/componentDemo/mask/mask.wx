@@ -1,0 +1,233 @@
+<!--mask.ui-->
+<template>
+  <view>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>mask基本使用</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+      <view class="sample_title">基本使用</view>
+      <view class="sample_content">
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask1">打开全屏遮罩</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask2">遮罩导航栏以下的区域</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask3">点击遮罩不关闭</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask4">自定义遮罩背景</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask5">全透明遮罩</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask6">遮罩动画（由小变大）</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask9">遮罩动画（由大变小）</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask7">白色毛玻璃效果（仅IOS）</button>
+        <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask8">黑色毛玻璃效果（仅IOS）</button>
+      </view>
+    </view>
+    <ui-mask show="{{showMask1}}" hide-delay="500" >
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask1">关闭遮罩</button>
+      </view>
+    </ui-mask>
+    <ui-mask show="{{showMask2}}" top="{{top2}}">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask2">关闭遮罩</button>
+      </view>
+    </ui-mask>
+    <ui-mask show="{{showMask3}}" hide-on-tap="{{false}}">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask3">关闭遮罩</button>
+      </view>
+    </ui-mask>
+    <ui-mask show="{{showMask4}}" custom-style="{{ customStyle1 }}">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask4">关闭遮罩</button>
+      </view>
+    </ui-mask>
+
+
+    <ui-mask show="{{showMask5}}" custom-style="{{ customStyle2 }}" hide-on-tap="{{false}}">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask5">关闭遮罩</button>
+      </view>
+    </ui-mask>
+
+    <ui-mask show="{{showMask6}}" effect="scale-out" animation>
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask6">关闭遮罩</button>
+      </view>
+    </ui-mask>
+
+    <ui-mask show="{{showMask7}}" blur="light">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask7">关闭遮罩</button>
+      </view>
+    </ui-mask>
+
+    <ui-mask show="{{showMask8}}" blur="dark">
+      <view class="content">
+        <button type="success" data-show="{{ false }}" bindtap="handleShowMask8">关闭遮罩</button>
+      </view>
+    </ui-mask>
+
+    <ui-mask show="{{showMask9}}" effect="scale-in" animation>
+      <view class="content content2" bindtap="handleShowMask9">
+        <image src="{{imgSrc1}}" style="width:300px;height:346px;" width="300"></image>
+      </view>
+    </ui-mask>
+
+   
+  </view>
+
+</template>
+
+
+<script>
+// mask.js
+export default {
+  config: {
+    "navigationBarTitleText": "mask基本使用"
+  },
+  data : {
+    height:wx.WIN_HEIGHT,
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    top2: wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT,
+    showMask1: false,
+    showMask2: false,
+    showMask3: false,
+    showMask4: false,
+    showMask5: false,
+    showMask6: false,
+    showMask7: false,
+    showMask8: false,
+    showMask9: false,
+    showMask10: false,
+    imgSrc1: 'http://images.uileader.com/20180315/da626bbd-4a86-4d5d-9690-00350528d91f.png',
+    customStyle1:{
+      'background-color':'rgba(255, 255, 255, 0.8)',
+    },
+    customStyle2:{
+      'background-color':'rgba(255, 255, 255, 0)',
+    }
+  },
+  handleTap () {
+    wx.showToast({
+      title: 'tap...'
+    })
+  },
+  handleShowMask1 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask1: show
+    })
+  },
+  handleShowMask2 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask2: show
+    })
+  },
+  handleShowMask3 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask3: show
+    })
+  },
+  handleShowMask4 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask4: show
+    })
+  },
+  handleShowMask5 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask5: show
+    })
+  },
+  handleShowMask6 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask6: show
+    })
+  },
+  handleShowMask7 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask7: show
+    })
+  },
+  handleShowMask8 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask8: show
+    })
+  },
+  handleShowMask9 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMask9: show
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+}
+
+</script>
+
+<style lang="less">
+  // mask.less
+button {
+  margin: 10px;
+  height: 36px;
+  line-height: 36px;
+  color: #fff;
+}
+view {
+  &.content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+  }
+  &.content2{
+    height: 100%;
+    .mix-flex-center();
+  }
+}
+
+.mask8{
+  .mix-flex-center();
+  .finger-swiper{
+    color: #fff;
+    text-align: center;
+  }
+  .know{
+    color: #d6545d;
+    text-decoration: underline;
+  }
+}
+
+
+.tag-6 {
+  border: 1px solid #f1f2f3;
+  border-radius: 3px;
+  text-align: center;
+  height: 24px;
+  line-height: 24px;
+}
+
+.select-class {
+  background: #54d09f;
+  color: #fff;
+}
+
+</style>

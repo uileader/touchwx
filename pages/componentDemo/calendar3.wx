@@ -1,0 +1,121 @@
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>{{dataMonth}}</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="bg-blue">
+        <ui-w-calendar
+        value="{{date}}"
+        bindchanged="selectedHandler"
+        bindweekchange="weekHandler"
+        date-range="{{[2,2]}}"
+      ></ui-w-calendar>
+
+    </view>
+    <text block style="margin-top:10px;text-align:center">当前选中的日期是{{dateDay}}</text>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "calendar3",
+    "navigationStyle": "custom"
+  },
+  data: {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    date: '',
+    dateDay: '',
+    dateObj: {},
+    dataMonth:''
+  },
+  selectedHandler (e) {
+    console.log(e,'selectedHandlerselectedHandler')
+    let val = e.detail
+    console.log(val)
+    this.data.dateObj = val.split('/')
+    this.data.dateDay = `${this.data.dateObj[0]}年${this.data.dateObj[1]}月${this.data.dateObj[2]}日`
+    this.setData({
+      dateObj:this.data.dateObj,
+      dateDay:this.data.dateDay
+    })
+  },
+  weekHandler (e) {
+    console.log(e,'weekHandler')
+    let dataMonth = e.detail.substring(0,7)
+    dataMonth = dataMonth.split('/')
+    console.log(dataMonth)
+    this.data.dataMonth = `${dataMonth[0]}年${dataMonth[1]}月`
+    console.log(this.data.dataMonth)
+    this.setData({
+      dataMonth:this.data.dataMonth
+    })
+  },
+  navigateBack () {
+    ui.navigateBack()
+  },
+  format (obj) {
+    var date = new Date(obj)
+    var y = 1900 + date.getYear()
+    var m = '0' + (date.getMonth() + 1)
+    var d = '0' + date.getDate()
+    return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  onLoad () {
+    let date = new Date()
+    date = Date.parse(date)
+    date = this.format(date)
+    this.data.date = date
+    this.data.dateObj = this.data.date.split('/')
+    this.data.dateDay = `${this.data.dateObj[0]}年${this.data.dateObj[1]}月${this.data.dateObj[2]}日`
+    this.data.dataMonth = `${this.data.dateObj[0]}年${this.data.dateObj[1]}月`
+    this.setData({
+      date:date,
+      dateObj:this.data.dateObj,
+      dateDay:this.data.dateDay,
+      dataMonth:this.data.dataMonth
+    })
+
+  }
+}
+
+</script>
+
+<style lang="less">
+  // calendar3.less
+.ui-nav-bar{
+  background-color: #39f;
+  color:#fff
+}
+.calendartab{
+  padding:10px 0
+}
+.ui-w-calendar{
+  background-color: transparent;
+  color:#fff;
+}
+.is-holiday{
+  color:#fff !important;
+}
+
+
+.bg-blue{
+  background-color:#3399FF; 
+  width:100%; 
+  height: 100px;
+  position: relative;
+}
+</style>

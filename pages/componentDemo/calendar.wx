@@ -1,0 +1,257 @@
+<template>
+    <view>
+    <view style="height:{{contentHeight}}px">
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#39f',color:'#fff',borderBottom:'1px solid #39f'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#fff"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+      <view class="personalbox">
+        <view class="headimgbox">
+          <image src="http://images.uileader.com/20180318/e62a5f83-64a6-428a-8726-7cbb65eab3dd.jpg"></image>
+        </view>
+            <ui-row class="infobox">
+              <ui-col align="center">
+                <text class="num">0</text>
+                <text class="text">连续签到天数</text>
+              </ui-col>
+              <ui-col align="center">
+                <text class="num">0</text>
+                <text class="text">积分</text>
+              </ui-col>
+            </ui-row>
+      </view>
+      <view class="calendartab">
+        <ui-row>
+          <ui-col bindtap="prevchange" align="center" width="50">
+            <ui-icon type="arrow-left" color="#666"></ui-icon>
+          </ui-col>
+          <ui-col>
+            <text>{{dateyear}}年{{datemonth}}月</text>
+          </ui-col>
+          <ui-col bindtap="nextchange" align="center" width="50">
+            <ui-icon type="arrow-right" color="#666"></ui-icon>
+          </ui-col>
+        </ui-row>
+      </view>  
+      <ui-calendar
+        disable-past-days
+        select-range-mode="{{false}}"
+        bindmonthchange="monthChangeHandler"
+        bindchange="selectedHandler"
+        value="{{date}}"
+        show-month-range ="{{['2017/12/01', '2018/12/01']}}"
+        max-range="60"
+        date-page="{{datePage}}"
+        bindselectedstart="bindselectedstart"
+        bindselectedend="bindselectedend"
+      ></ui-calendar>
+      <ui-row>
+        <ui-col vertical-align="middle" space-left="10">
+          <text>今日签到可得到10积分</text>
+        </ui-col>
+        <ui-col>
+          <button bindtap="qiandao">签到</ui-button>
+        </ui-col>
+      </ui-row>
+      </view>
+    </view>
+  </template>
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "",
+      "navigationBarBackgroundColor":"#39f",
+      "navigationBarTextStyle":"white",
+      "navigationBarBorderColor":"#39f"
+    },
+    data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      datePage: '',
+      date: '',
+      dateobj: {},
+      dateyear: null,
+      datemonth: null,
+      dateday: null,
+      monthrange: [],
+      contentHeight: wx.DEFAULT_CONTENT_HEIGHT
+    },
+    // 选择日期
+    selectedHandler (val) {
+      let e = val.detail
+      this.init(e)
+    },
+    // 滑动时变化
+    monthChangeHandler (val) {
+      let e = val.detail
+      this.changeDate(e)
+    },
+    bindselectedstart(val){
+      let e = val.detail
+    },
+    bindselectedend(val){
+      let e = val.detail
+    },
+    nextchange () {
+      // 结束时间范围的时间戳
+      let endrange = Date.parse(new Date(this.data.monthrange[1]))
+     
+      let arr = this.data.monthrange[1].split('/')
+      endrange = new Date(arr[0],arr[1]-1)
+      endrange = Date.parse(endrange)
+      let date = new Date(this.data.dateobj.arr[0],this.data.dateobj.arr[1]-1)
+      date.setMonth(date.getMonth() + 1)
+      // 改变后的日期时间戳
+      date = Date.parse(date)
+      
+      if (date > endrange) {
+        return false
+      } else {
+        this.data.dateobj.date = this.format(date)
+        this.changeDate(this.data.dateobj.date)
+        this.data.datePage = this.data.dateobj.arr[0]+'/'+this.data.dateobj.arr[1]
+        this.setData({
+          datePage:this.data.datePage
+        })
+      }
+
+      
+    },
+    prevchange () {
+      // let date = new Date(this.dateobj.date)
+      // 开始时间范围的时间戳
+      let startrange = Date.parse(new Date(this.data.monthrange[0]))
+      // let startrange
+      let arr = this.data.monthrange[0].split('/')
+      startrange = new Date(arr[0],arr[1]-1)
+      startrange = Date.parse(startrange)
+      let date = new Date(this.data.dateobj.arr[0],this.data.dateobj.arr[1]-1)
+      date.setMonth(date.getMonth() - 1)
+      // 改变后的日期时间戳
+      date = Date.parse(date)
+      if (date < startrange) {
+        return false
+      } else {
+        this.data.dateobj.date = this.format(date)
+        this.changeDate(this.data.dateobj.date)
+        this.data.datePage = this.data.dateobj.arr[0]+'/'+this.data.dateobj.arr[1]
+        this.setData({
+          datePage:this.data.datePage
+        })
+      }
+    },
+    qiandao () {
+      let arr = this.data.date.split('/')
+      let year = arr[0]
+      let month = arr[1]
+      let day = arr[2]
+      wx.showToast({ title: `签到：${year} 年 ${month} 月 ${day} 日` ,icon:"none"})
+    },
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    // 根据参数，改变dateobj。dateobj用来临时存储改变的时间。并且生成数组。
+    init (date) {
+      this.data.dateobj.date = date
+      this.data.dateobj.arr = date.split('/')
+      this.setData({
+        date:this.data.dateobj.date,
+        dateobj:this.data.dateobj,
+        dateyear:this.data.dateobj.arr[0],
+        datemonth:this.data.dateobj.arr[1],
+        dateday:this.data.dateobj.arr[2]
+      })
+    },
+    changeDate(date){
+      this.data.dateobj.date = date
+      this.data.dateobj.arr = date.split('/')
+      this.setData({
+        dateobj:this.data.dateobj,
+        dateyear:this.data.dateobj.arr[0],
+        datemonth:this.data.dateobj.arr[1],
+      })
+    },
+    onLoad () {
+      let start, end
+      let rangedate = new Date()
+      let rangedate2 = new Date()
+      start = this.format(rangedate.setMonth(new Date().getMonth() - 6))
+      end = this.format(rangedate2.setMonth(new Date().getMonth() + 6))
+      start = start.substring(0, 7)
+      end = end.substring(0, 7)
+      this.data.monthrange.push(start, end)
+      this.setData({
+        monthrange:this.data.monthrange
+      })
+      let date = new Date()
+      this.init(this.format(date))
+    },
+    navigateBack () {
+      wx.navigateBack()
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+    .win{
+    background-color: #f4f2f3
+  }
+  .personalbox{
+    background-color: #39f;
+    .headimgbox{
+      width:50px;
+      height:50px;
+      border-radius: 50%;
+      margin:0 auto;
+      border:1px solid #ccc;
+      overflow: hidden;
+      .ui-image{
+        width:100%;
+      }
+    }
+    .infobox{
+      color:#fff;
+      padding:20px 0;
+      .num{
+        font-size:16px;
+      }
+      .text{
+        font-size:14px;
+      }
+    }
+  
+  }
+  
+  .calendartab{
+    width:200px;
+    margin:0 auto;
+    text-align: center;
+    line-height: 50px;
+    background-color: #fff
+  }
+  .calendartab{
+    margin-top:20px;
+  }
+  
+  .calendar-head{
+    background-color:#fff !important
+  }
+  .calendar-week-head{
+    color:#333;
+  }
+  </style>
+  

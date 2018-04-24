@@ -1,0 +1,75 @@
+<template>
+  <view>
+    <!-- 自定义导航 -->
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {boxShadow: '0 0px 16px 0 #ccc',backgroundColor:'#fff'} }}">
+      <ui-row height="46" >
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>位置固定容器</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+
+    <!-- 设置内容距离nav-bar高度占位 -->
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <ui-fixed-view top="146" left="50">
+      <view class="fixed-view-content">左上固定</view>
+    </ui-fixed-view>
+    <ui-fixed-view top="146" right="50">
+      <view class="fixed-view-content">右上固定</view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="100" left="50">
+      <view class="fixed-view-content">左下固定</view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="100" right="50">
+      <view class="fixed-view-content">右下固定</view>
+    </ui-fixed-view>
+    <ui-fixed-view top="{{ fixedTop }}" left="0" right="0">
+      <view class="fixed-view-content">顶部固定</view>
+    </ui-fixed-view>
+    <ui-fixed-view bottom="0" left="0" right="0">
+      <view class="fixed-view-content">底部固定</view>
+    </ui-fixed-view>
+    <view class="content_list">
+      <view wx:for="{{ items }}" wx:key="index" class="{{ index % 2 == 0 ? 'grey-bg':  '' }}">
+        {{ item }}
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+let items = []
+for (let i = 1; i <= 100; i++) {
+  items.push(`列表项目${i}`)
+}
+
+export default {
+  config: {
+    navigationBarTitleText: "fixed-view组件"
+  },
+  data: {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    items: items
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+};
+</script>
+
+<style lang="less">
+.fixed-view-content {
+  padding: 0 6px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: #fff;
+  background-color: #FFA060;
+  z-index: 99;
+}
+</style>

@@ -1,0 +1,164 @@
+<!--interestPointAroud.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>周围兴趣点</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="map_container" style="height:{{height-100}}px">
+      <map 
+        class="map" 
+        id="map" 
+        longitude="{{longitude}}" 
+        latitude="{{latitude}}" 
+        scale="18" 
+        markers="{{markers}}"
+        show-location
+        bindmarkertap="makertap"
+        style="width:100%;height:{{height-100}}px"> 
+      </map>
+    </view>
+    <ui-fixed-view bottom="0" right="0" left="0">
+      <view class="map_text" >
+        <text>{{textData.name}}</text>
+        <text>{{textData.desc}}</text>
+        <view></view>
+      </view>
+    </ui-fixed-view>
+  </view>
+</template>
+
+
+<script>
+import amapFile from "../../../static/map/amap-wx"
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+var markersData = []
+export default {
+  config: {
+    "navigationBarTitleText": "周围兴趣点"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    markers: [],
+    latitude: '',
+    longitude: '',
+    textData: {},
+    city: '',
+    height:wx.DEFAULT_CONTENT_HEIGHT
+  },
+  makertap: function (e) {
+    var id = e.markerId
+    var that = this
+    that.showMarkerInfo(markersData, id)
+    that.changeMarkerColor(markersData, id)
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  onLoad: function (e) {
+    var that = this
+    var myAmapFun = new amapFile.AMapWX({ key: key })
+    var params = {
+      iconPathSelected: '/images/posi.png',
+      iconPath: '/images/marker.png',
+      success: function (data) {
+        markersData = data.markers
+        var poisData = data.poisData
+        var markersNew = []
+        markersData.forEach(function (item, index) {
+          markersNew.push({
+            id: item.id,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            iconPath: item.iconPath,
+            width: item.width,
+            height: item.height
+          })
+        })
+        if (markersData.length > 0) {
+          that.setData({
+            markers: markersNew
+          })
+          that.setData({
+            city: poisData[0].cityname || ''
+          })
+          that.setData({
+            latitude: markersData[0].latitude
+          })
+          that.setData({
+            longitude: markersData[0].longitude
+          })
+          that.showMarkerInfo(markersData, 0)
+        }
+      },
+      fail: function (info) {
+      }
+    }
+
+    myAmapFun.getPoiAround(params)
+  },
+  showMarkerInfo: function (data, i) {
+    var that = this
+    that.setData({
+      textData: {
+        name: data[i].name,
+        desc: data[i].address
+      }
+    })
+  },
+  changeMarkerColor: function (data, i) {
+    var that = this
+    var markers = []
+
+    for (var j = 0; j < data.length; j++) {
+      if (j === i) {
+        data[j].iconPath = '/images/posi.png'
+      } else {
+        data[j].iconPath = '/images/marker.png'
+      }
+      markers.push({
+        id: data[j].id,
+        latitude: data[j].latitude,
+        longitude: data[j].longitude,
+        iconPath: data[j].iconPath,
+        width: data[j].width,
+        height: data[j].height
+      })
+    }
+    that.setData({
+      markers: markers
+    })
+  },
+  onReady () {
+    this.onLoad()
+  }
+}
+
+</script>
+
+<style lang="less">
+.map {
+  height: 100%
+}
+.map_text{
+  width: 100%;
+  height: 100px;
+  bottom:0;
+  left: 0;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 0 25px 0 #cccccc;
+  .ui-text{
+    line-height: 25px;
+  }
+}
+</style>

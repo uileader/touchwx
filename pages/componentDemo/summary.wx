@@ -1,0 +1,200 @@
+<!--summary.ui-->
+<template>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>概要</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="sample_title">基本使用</view>
+    <view class="sample_content">
+      <view class="title">电影简介</view>
+      <ui-summary
+        height="65"
+        animate="{{false}}"
+        >
+        <text>
+          一对好基友孟云（韩庚 饰）和余飞（郑恺 饰）跟女友都因为一点小事宣告分手，并且“拒绝挽回，死不认错”。两人在夜店、派对与交友软件上放飞人生第二春，大肆庆祝“黄金单身期”，从而引发了一系列好笑的故事。孟云与女友同甘共苦却难逃“五年之痒”，余飞与女友则棋逢敌手相爱相杀无绝期。然而现实的“打脸”却来得猝不及防：一对推拉纠结零往来，一对纠缠互怼全交代。两对恋人都将面对最终的选择：是再次相见？还是再也不见？
+        </text>
+      </ui-summary>
+    </view>
+
+    <view class="sample_title">外部控制</view>
+    <view class="store_list" wx:for="{{list}}" wx:for-item="item">
+      <ui-row height="80" class="collect_content" border-bottom>
+        <ui-col vertical-align="middle" align="center" width="80">
+          <image
+          src="{{ item.imgUrl }}"
+          mode='aspectFill'
+          style="width:60px;height:60px"
+          ></image>
+        </ui-col>
+        <ui-col>
+          <view class="title">{{ item.title }}</view>
+          <view class="sales">
+            <text>4.5</text>
+            <text>月售2595单</text>
+          </view>
+          <ui-row class="bottom" height="20">
+            <ui-col vertical-align="middle" align="left">
+              <view>¥20起送</view>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right">
+              <view>1.2Km | 43分钟</view>
+            </ui-col>
+          </ui-row>
+        </ui-col>
+      </ui-row>
+      <ui-row class="summary_wrap" space="20">
+        <ui-col width="80"></ui-col>
+        <ui-col>
+          <view class="activity" data-idx="{{index}}" bindtap="tap">
+              6个活动 <ui-icon type="arrow-down" size="12" color="#A7A7A7" class="{{ item.class }}"></ui-icon>
+            </view>
+          <ui-summary
+            height="35"
+            state="{{item.state}}"
+            show-arrow="{{false}}">
+            <view class="discounts_content">满100减10</view>
+            <view class="discounts_content">168特价新年3人餐</view>
+            <view class="discounts_content">新用户下单立减17元</view>
+            <view class="discounts_content">新年两人特惠套餐</view>
+            <view class="discounts_content">69元人气满满特价拼盘</view>
+          </ui-summary>
+        </ui-col>
+      </ui-row>
+    </view>
+</template>
+
+
+<script>
+// summary.js
+export default {
+  config: {
+    "navigationBarTitleText": "概要"
+  },
+  data:{
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    state: 'summary',
+    state1: 'details',
+    list: [
+      { height: 80,
+        title: '旺顺阁鱼头泡饼',
+        imgUrl: 'http://p0.meituan.net/200.0/deal/1e257a1f5b0d974b292ac7bc9a3c21ad71414.jpg',
+        state: 'summary',
+        class: ''
+      },
+      { height: 80,
+        title: '吉野家',
+        imgUrl: 'http://p0.meituan.net/200.0/deal/271ab37c767d8c4ba5f705da8eb00e9032980.jpg',
+        state: 'summary',
+        class: ''
+      }
+    ]
+  },
+  tap (e) {
+    let index = e.currentTarget.dataset.idx
+    if (this.data.list[index].state === 'summary') {
+      this.data.list[index].state = 'details'
+      this.data.list[index].class = 'rotate'
+    } else {
+      this.data.list[index].state = 'summary'
+      this.data.list[index].class = ''
+    }
+    this.setData({
+      list: this.data.list
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // summary.less
+.test1{
+  font-size:20px;
+  color:red;
+}
+.title{
+  font-size: 16px;
+  font-weight: 500;
+}
+.collect_content{
+  padding: 10px 10px 10px 0;
+  background: #fff;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  .title{
+    color: #212121;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .sales{
+    display: flex;
+    .ui-stars{
+      width: 85px;
+    }
+    text{
+      font-size: 12px;
+      color: #5C5C5C;
+    }
+  }
+  .bottom{
+    view{
+      font-size: 12px;
+      color: #646464;
+    }
+  }
+}
+.summary_wrap{
+  position: relative;
+  view{
+    font-size: 12px;
+    color: #A7A7A7;
+    line-height: 18px;
+  }
+  .activity{
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    .ui-icon{
+      display: inline-block;
+      transform:rotate(0deg);
+      transition: all .3s ease-in;
+      &.rotate{
+        transform:rotate(180deg);
+      }
+    }
+  }
+}
+
+.activity{
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    .ui-icon{
+      display: inline-block;
+      transform:rotate(0deg);
+      transition: all .3s ease-in;
+      &.rotate{
+        transform:rotate(180deg);
+      }
+    }
+  }
+
+</style>

@@ -1,0 +1,168 @@
+<template>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <text>完成</text>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>请选择入住离店日期</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+            
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="margin-top:{{NAV_HEIGHT}}"></view>
+            <ui-v-calendar
+              height="{{height - headerHeight}}"
+              select-range-mode
+              show-month-range="{{monthrange}}"
+              max-range="{{30}}"
+              date-range="{{[3,3]}}"
+              bindselectedstart="selectedStartHandler"
+              bindselectedend="selectedEndHandler"
+              bindfailed="failedHandler"
+            ></ui-v-calendar>
+        <!-- 双选，默认不选结束 -->      
+    </view>
+  </template>
+  
+  
+  <script>
+  export default {
+    config: {
+      "navigationBarTitleText": "纵向日历"
+    },
+    data: {
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      headerHeight: wx.DEFAULT_HEADER_HEIGHT,
+      radioDate: '',
+      radioMonth: '',
+      radioDay: '',
+      // 时间对象，存储临时变化的时间
+      dateobj: {},
+      // 时间可选范围
+      monthrange: [],
+      // 默认选中的时间范围
+      defaultMonthrange: [],
+      rangeDate: '',
+      rangestart: '',
+      rangeend: '',
+      height: wx.WIN_HEIGHT
+    },
+    radioinit (thisdate) {
+      
+      this.data.dateobj.radioDate = thisdate
+      this.data.dateobj.radioDate = thisdate.split('/')
+      this.data.radioDate = this.data.dateobj.radioDate
+      this.data.radioMonth = this.data.dateobj.radioDate[1]
+      this.data.radioDay = this.data.dateobj.radioDate[2]
+      this.setData({
+        radioDate:thisdate,
+        radioMonth:this.data.dateobj.radioDate[1],
+        radioDay:this.data.dateobj.radioDate[2]
+      })
+      
+    },
+    // 单选将改变的时间，赋值给时间。
+    rangeinit (thisdate) {
+      let start, end
+      this.data.dateobj.rangestart = thisdate.rangedate[0]
+      this.data.dateobj.rangeend = thisdate.rangedate[1]
+      start = this.data.dateobj.rangestart.split('/')
+      end = this.data.dateobj.rangeend.split('/')
+      // this.rangestart = `${start[1]}月${start[2]}日`
+      // this.rangeend = `${end[1]}月${end[2]}日`
+      this.setData({
+        rangestart:`${start[1]}月${start[2]}日`,
+        rangeend:`${end[1]}月${end[2]}日`
+      })
+    },
+ 
+    selectedStartHandler (e) {
+      
+      this.rangeDate = e
+    },
+    selectedEndHandler (e) {
+      this.data.dateobj.rangedate = e.detail
+      setTimeout(() => {
+        var pages = getCurrentPages()
+        var currPage = pages[pages.length - 1];   //当前页面
+        var prevPage = pages[pages.length - 2];  
+        console.log(this.data.dateobj.rangedate[0],this.data.dateobj.rangedate[1],'chuanhuiqude') 
+        prevPage.setData({
+          rangestart:this.data.dateobj.rangedate[0],
+          rangeend:this.data.dateobj.rangedate[1]
+        })
+        wx.navigateBack()
+      }, 500)
+      this.calculationDays()
+      this.rangeinit(this.data.dateobj)
+    },
+    failedHandler (err) {
+      if (err === 1) {
+        wx.showToast({ title: '您选择的时间超过30天,请重新选择' })
+      }
+    },
+ 
+    format (obj) {
+      var date = new Date(obj)
+      var y = 1900 + date.getYear()
+      var m = '0' + (date.getMonth() + 1)
+      var d = '0' + date.getDate()
+      return y + '/' + m.substring(m.length - 2, m.length) + '/' + d.substring(d.length - 2, d.length)
+    },
+    onLoad () {
+      // 计算时间范围
+      let rangedate = new Date()
+      let rangedate2 = new Date()
+      let start, end
+      start = this.format(rangedate.setMonth(new Date().getMonth()))
+      end = this.format(rangedate.setMonth(new Date().getMonth() + 6))
+      start = start.substring(0, 7)
+      end = end.substring(0, 7)
+      this.data.monthrange.push(start, end)
+      this.setData({
+        monthrange:this.data.monthrange
+      })
+    },
+    navigateBack () {
+      wx.navigateBack()
+    }
+  }
+  
+  </script>
+  
+  <style lang="less">
+  // calendar2.less
+  .swiper-slide {
+    .ui-image {
+      width: 100%;
+  }
+  }
+  .win{
+    padding:10px 30px; 
+  }
+  .smalltitle{
+    font-size:12px;
+    color:#666
+  }
+  .smalltitle2{
+    background-color:#ebc7c8;
+    color: #C01920;
+    padding:0px 3px;
+    border-radius: 5px;
+    font-size:12px;
+  }
+  
+  .btnyd {
+    background-color: #C01920;
+    border-radius: 20px;
+    border-color: #C01920;
+    box-shadow: 3px 3px 8px #E57A7E;
+    color: #fff;
+  }
+  
+  
+  </style>

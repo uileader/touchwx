@@ -1,0 +1,99 @@
+<!--stepper.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>数字步进器</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    
+    <view class="sample_title">基本使用</view>
+    <view class="sample_content">
+        <ui-stepper></ui-stepper>
+    </view>
+
+    <view class="sample_title">事件</view>
+    <view class="sample_content">
+        <ui-stepper value="1" bindsubtraction="subtraction" bindaddition="addition"></ui-stepper>
+    </view>
+
+    <view class="sample_title">设置最大值9最小值1：</view>
+    <view class="sample_content">
+        <ui-stepper max=9 min=1></ui-stepper>
+    </view>
+
+    <view class="sample_title">设置步长值10：</view>
+    <view class="sample_content">
+      <ui-stepper step=10></ui-stepper>
+    </view>
+
+    <view class="sample_title">设置步长值0.5（保留小数点后一位）：</view>
+    <view class="sample_content">
+      <ui-stepper step=0.5></ui-stepper>
+    </view>
+
+
+    <view class="sample_title">自定义尺寸</view>
+    <view class="sample_content">
+      <ui-stepper height="35" width="120"></ui-stepper>
+    </view>
+
+
+    <view class="sample_title">自定义颜色</view>
+    <view class="sample_content">
+      <ui-stepper color="#39f"></ui-stepper>
+    </view>
+
+    
+    <view class="sample_title">自定义直角</view>
+    <view class="sample_content">
+      <ui-stepper corner="butt"></ui-stepper>
+    </view>
+
+
+
+
+
+  </view>
+</template>
+
+
+<script>
+// stepper.js
+export default {
+  config: {
+    "navigationBarTitleText": "数字步进器"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px'
+  },
+  subtraction (e) {
+    console.log(e)
+    let val = e.detail.toString()
+    console.log(val)
+    wx.showToast({ title: val ,icon:'none'})
+  },
+  addition (e) {
+    console.log(e)
+    let val = e.detail.toString()
+    console.log(val)
+    wx.showToast({ title: val,icon:'none' })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  
+</style>

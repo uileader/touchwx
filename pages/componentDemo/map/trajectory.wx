@@ -1,0 +1,266 @@
+<!--trajectory.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>轨迹移动缩放</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="map-wrap">
+      <map 
+        id="map" 
+        longitude="{{longitude}}" 
+        latitude="{{latitude}}"
+        scale="{{scale}}"
+        show-location="{{showLocation}}"
+        markers="{{markers}}"
+        polyline="{{polyline}}"
+        style="width:100%;height:{{height-100}}px;">
+      </map>
+    </view>
+      <view class="bottom">
+        <button type="primary" bindtap="move">点击开始导航</button>
+      </view>
+  </view>
+</template>
+
+
+<script>
+
+export default {
+  config: {
+    "navigationBarTitleText": "轨迹移动缩放",
+    "disableScroll":true
+  },
+  data :{
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    latitude: 39.855060,
+    longitude: 116.368650,
+    scale: 18,
+    showLocation: true,
+    mapCtx: null,
+    moveBtnClick: true,
+    back: false,
+    polyline: [{
+      points: [{
+        latitude: 39.855745,
+        longitude: 116.368432
+      }, {
+        latitude: 39.856264,
+        longitude: 116.370331
+      }, {
+        latitude: 39.856462,
+        longitude: 116.371404
+      }, {
+        latitude: 39.853212,
+        longitude: 116.371388
+      }],
+      color: '#FF0000DD',
+      width: 2,
+      dottedLine: true
+    }],
+    markers: [{
+      id: 0,
+      latitude: 39.855745,
+      longitude: 116.368432,
+      iconPath: '/images/car.png',
+      width: 30,
+      height: 30,
+      rotate: 100,
+      anchor: {
+        x: 0.5,
+        y: 0.5
+      }
+
+    }, {
+      id: 1,
+      latitude: 39.855745,
+      longitude: 116.368432,
+      iconPath: '/images/posi.png',
+      callout: {
+        content: '路径A',
+        color: '#000000',
+        fontSize: 12,
+        bgColor: '#ffffff',
+        borderRadius: 11,
+        display: 'BYCLICK',
+        padding: 5
+      },
+      width: 30,
+      height: 40
+    }, {
+      id: 2,
+      latitude: 39.856264,
+      longitude: 116.370331,
+      iconPath: '/images/posi.png',
+      callout: {
+        content: '路径B',
+        color: '#000000',
+        fontSize: 12,
+        bgColor: '#ffffff',
+        borderRadius: 11,
+        display: 'BYCLICK',
+        padding: 5
+      },
+      width: 30,
+      height: 40
+    }, {
+      id: 3,
+      latitude: 39.856462,
+      longitude: 116.371404,
+      iconPath: '/images/posi.png',
+      callout: {
+        content: '路径C',
+        color: '#000000',
+        fontSize: 12,
+        bgColor: '#ffffff',
+        borderRadius: 11,
+        display: 'BYCLICK',
+        padding: 5
+      },
+      width: 30,
+      height: 40
+    }, {
+      id: 4,
+      latitude: 39.853212,
+      longitude: 116.371388,
+      iconPath: '/images/posi.png',
+      callout: {
+        content: '路径D',
+        color: '#000000',
+        fontSize: 12,
+        bgColor: '#ffffff',
+        borderRadius: 11,
+        display: 'BYCLICK',
+        padding: 5
+      },
+      width: 30,
+      height: 40
+    }],
+    controls: [{
+      id: 2,
+      iconPath: '/images/location.png',
+      clickable: true,
+      position: {
+        left: 15,
+        top: 570,
+        width: 64,
+        height: 64
+      }
+    }],
+    circles: [{
+      latitude: 39.855060,
+      longitude: 116.368650,
+      color: '#0000FF33',
+      fillColor: '#0000FF33',
+      radius: 100,
+      strokeWidth: 1
+
+    }],
+    height:wx.DEFAULT_CONTENT_HEIGHT
+  },
+  onReady () {
+    this.mapCtx = wx.createMapContext('map')
+  },
+  navigateBack () {
+    wx.navigateBack()
+  },
+  move () {
+    this.mapCtx.includePoints({
+      padding: [10],
+      points: [{
+        latitude: 39.855745,
+        longitude: 116.368432
+      }, {
+        latitude: 39.856264,
+        longitude: 116.370331
+      }]
+    })
+    if (!this.data.moveBtnClick) return
+    this.data.moveBtnClick = false
+    var mapCtx = wx.createMapContext('map')
+    // 声明汽车运动轨迹
+    var path = [{
+      latitude: 39.855745,
+      longitude: 116.368432
+    }, {
+      latitude: 39.856264,
+      longitude: 116.370331
+    }, {
+      latitude: 39.856462,
+      longitude: 116.371404
+    }, {
+      latitude: 39.853212,
+      longitude: 116.371388
+    }]
+    if (this.data.back) path.reverse()
+    mapCtx.translateMarker({
+      markerId: 0,
+      destination: path[1],
+      autoRotate: true,
+      duration: 4000,
+      rotate:10,
+      animationEnd: () => {
+        this.mapCtx.includePoints({
+          padding: [10],
+          points: [{
+            latitude: 39.856264,
+            longitude: 116.370331
+          }, {
+            latitude: 39.856462,
+            longitude: 116.371404
+          }]
+        })
+        mapCtx.translateMarker({
+          markerId: 0,
+          destination: path[2],
+          autoRotate: true,
+          rotate:120,
+          duration: 4000,
+          animationEnd: () => {
+            this.mapCtx.includePoints({
+              padding: [100,10,100,10],
+              points: [{
+                latitude: 39.856462,
+                longitude: 116.371404
+              }, {
+                latitude: 39.853212,
+                longitude: 116.371388
+              }]
+            })
+            mapCtx.translateMarker({
+              markerId: 0,
+              destination: path[3],
+              autoRotate: true,
+              rotate:300,
+              duration: 4000,
+              animationEnd: () => {
+                this.data.back = !this.data.back
+                this.data.moveBtnClick = true
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+
+}
+
+</script>
+
+<style lang="less">
+.bottom{
+  width: 100%;
+  padding: 20px 10px;
+  left: 0;
+}
+</style>

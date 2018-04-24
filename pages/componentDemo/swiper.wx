@@ -1,0 +1,240 @@
+<!--miniSwiper.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>swiper</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <ui-divider>一次滚三个</ui-divider>
+    <swiper indicator-dots class="three_swiper" circular current="0" indicator-color="rgba(51, 51, 51, 0.3)" indicator-active-color="#ff2a00">
+      <swiper-item>
+        <view class="swiper_item">
+          <image src="{{ items2[0].src }}"></image>
+          <image src="{{ items2[1].src }}"></image>
+          <image src="{{ items2[2].src }}" ></image>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="swiper_item">
+          <image src="{{ items2[4].src }}"></image>
+          <image src="{{ items2[5].src }}"></image>
+          <image src="{{ items2[6].src }}" ></image>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="swiper_item">
+          <image src="{{ items2[6].src }}"></image>
+          <image src="{{ items2[7].src }}"></image>
+          <image src="{{ items2[8].src }}" ></image>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="swiper_item">
+          <image src="{{ items2[9].src }}"></image>
+          <image src="{{ items2[10].src }}"></image>
+          <image src="{{ items2[11].src }}" ></image>
+        </view>
+      </swiper-item>
+    </swiper>
+
+
+    <ui-divider>自定义小圆点</ui-divider>
+    <view class="swiper-container">
+      <swiper circular autoplay="auto" interval="5000" duration="500" bindchange="swiperChange" class="swiper">
+        <block wx:for="{{items4}}" wx:key="unique">
+          <swiper-item>
+            <image src="{{item.src}}" class="img"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    
+      <view class="dots">
+        <block wx:for="{{items4}}" wx:key="unique">
+          <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+        </block>
+      </view>
+
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    "navigationBarTitleText": "swiper"
+  },
+  data :{
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    items: [{
+      src: 'http://images.uileader.com/20171103/5906a28c-0f12-4b71-8df2-98791d8716f6.jpg',
+      title: '放肆玩乐，轻巧办公'
+    },
+    {
+      src: 'http://images.uileader.com/20171103/34795a1c-1365-4256-b9c1-6fb4af1de3da.jpg',
+      title: '高温保护，一路驰骋'
+    },
+    {
+      src: 'http://images.uileader.com/20171103/926a6fdc-80f6-4244-8354-860627c88115.jpg',
+      title: '七夕好货，独家礼赠'
+    }],
+    items2: [{
+      title: 'Glow',
+      score: 9.7,
+      src: 'http://images.uileader.com/20171103/5c7dfdc3-c6ed-4968-82f7-4d55c191dead.jpg'
+    },
+    {
+      title: 'Got ',
+      score: 7.8,
+      src: 'http://images.uileader.com/20171103/dd760606-ab0f-45b2-a030-bab65e0b2a56.jpg'
+    },
+    {
+      title: 'MISS SLOANE',
+      score: 8.9,
+      src: 'http://images.uileader.com/20171103/14feebf0-3061-4681-bb45-fa27d76af891.jpg'
+    },
+    {
+      title: 'gifted',
+      score: 8.8,
+      src: 'http://images.uileader.com/20171103/7d89142f-b88d-4001-8196-7fd6834c2630.jpg'
+    },
+    {
+      title: 'BORN LEADER',
+      score: 9.2,
+      src: 'http://images.uileader.com/20171103/5fce28ba-fd02-48cb-a1c2-ce0ff3801844.jpg'
+    },
+    {
+      title: 'Big Little Lies',
+      score: 7.1,
+      src: 'http://images.uileader.com/20171103/2cdb945d-349d-4d19-8347-629675adde76.jpg'
+    },
+    {
+      title: 'MANCHESTER SEA',
+      score: 9.7,
+      src: 'http://images.uileader.com/20171103/727a3953-fafb-44e7-8fd8-92e84e11442f.jpg'
+    },
+    {
+      title: '金刚',
+      score: 8.8,
+      src: 'http://images.uileader.com/20171103/4ac53f4c-1e62-40ce-87d9-2b7638cf00be.jpg'
+    },
+    {
+      title: 'THE CIRCLE',
+      score: 8.3,
+      src: 'http://images.uileader.com/20171103/b13d8fbd-bb0e-4510-b680-4a559b79407c.jpg'
+    },
+    {
+      title: 'UNITED KINDOM',
+      score: 8.6,
+      src: 'http://images.uileader.com/20171103/f5d59af6-c4af-4faa-b36a-3473b78a7612.jpg'
+    },
+    {
+      title: 'UNITED KINDOM',
+      score: 8.6,
+      src: 'http://images.uileader.com/20171103/aa1b5858-8d6d-4e8b-9723-87fd802c78d9.jpg'
+    },
+    {
+      title: 'UNITED KINDOM',
+      score: 9.3,
+      src: 'http://images.uileader.com/20171103/6439465c-bac6-4d4f-bfd2-4376d0465b95.jpg'
+    },
+    {
+      title: 'UNITED KINDOM',
+      score: 9.6,
+      src: 'http://images.uileader.com/20171103/9e65711d-c1dc-450f-878a-fab40bd09b55.jpg'
+    }
+    ],
+    items3:[],
+    swiperCurrent:0,
+    items4:[{
+      src: 'http://images.uileader.com/20171110/e5b64484-b5e0-472a-bf52-ac95fb5685d3.jpg',
+      title: '放肆玩乐，轻巧办公'
+    },
+    {
+      src: 'http://images.uileader.com/20171110/e33376a8-c599-42e5-87ed-84aec360a61d.jpg',
+      title: '高温保护，一路驰骋'
+    },
+    {
+      src: 'http://images.uileader.com/20171110/37cc4a4e-a253-4fcd-a4f6-d9710e8f63e8.jpg',
+      title: '七夕好货，独家礼赠'
+    }]
+  },
+  handleChange (e) {
+    console.log(e)
+    wx.showToast({
+      title: `切换到第${index + 1}项`
+    })
+  },
+  handleAnimationfinish(index){
+    console.log('handleAnimationfinish',index)
+  },
+  swiperChange: function(e){
+    console.log(e)
+    this.setData({
+        swiperCurrent: e.detail.current
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // miniSwiper.less
+
+.three_swiper{
+  .swiper_item{
+    display: flex;
+    height: 200px;
+    image{
+      flex: 1;
+      margin-right: 5px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// 自定义小圆点
+.swiper-container{
+  position: relative;
+}
+.swiper-container .swiper{
+  height: 88px;
+}
+.swiper-container .swiper .img{
+  width: 100%;
+  height: 100%;
+}
+.swiper-container .dots{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20rpx;
+  display: flex;
+  justify-content: center;
+  z-index:9;
+}
+.swiper-container .dots .dot{
+  margin: 0 8rpx;
+  width: 14rpx;
+  height: 14rpx;
+  background: #fff;
+  border-radius: 8rpx;
+}
+.swiper-container .dots .dot.active{
+  width: 24rpx;
+  background: #fff;
+}
+</style>

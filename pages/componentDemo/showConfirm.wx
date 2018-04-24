@@ -1,0 +1,69 @@
+<!--showConfirm.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+            <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>showConfirm</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view class="sample_title">显示消息确认框</view>
+    <view class="sample_content">
+        <button bindtap="showConfirm1">打开Confirm</button>
+        <button bindtap="showConfirm3">带title的Confirm</button>
+    </view>
+  </view>
+</template>
+
+
+<script>
+  // showConfirm.js
+export default {
+  config: {
+    "navigationBarTitleText": "showConfirm"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px'
+  },
+  showConfirm1 () {
+    wx.showConfirm({
+      content: '您尚未绑定银行卡，绑定银行卡后即可向商家付款',
+      confirmButtonText: '去绑卡',
+      cancelButtonText: '返回',
+      success (result) {
+        if(result.confirm){
+          wx.showToast({
+            title: '触发去绑卡按钮'
+          })
+        }
+      }
+    })
+  },
+  showConfirm3 () {
+    wx.showConfirm({
+      title: '提示',
+      content: '您尚未绑定银行卡，绑定银行卡后即可向商家付款',
+      confirmButtonText: '去绑卡',
+      cancelButtonText: '返回'
+    })
+  },
+  navigateBack () {
+    wx.navigateBack()
+  }
+}
+
+</script>
+
+<style lang="less">
+  // showConfirm.less
+button{
+  margin:10px;
+}
+</style>

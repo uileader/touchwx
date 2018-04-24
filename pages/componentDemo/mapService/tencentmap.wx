@@ -1,0 +1,475 @@
+<!--mapSearchTips.ui-->
+<template>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+        <ui-row height="46">
+          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+              <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center">
+            <view>地图绘制</view>
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" width="60">
+          </ui-col>
+        </ui-row>
+      </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+      <view class="querySearch" style="height:{{conHeight}}px" hidden="{{!show}}">
+        <view class="section {{show?'sectionBack':''}}">
+        <form action="/search" bindsubmit="bindtap2"> 
+          <ui-row>
+            <ui-col vertical-align="middle">
+              <input bindinput="bindInput" bindconfirm="bindtap2" focus="{{ show }}" value={{keywords}} type="search"  bindfocus="bindfocus" bindblur="bindblur" name="search" placeholder="搜索地点"></ui-input>
+            </ui-col>
+          </ui-row>
+        </form>
+      </view>
+          <view bindtap="associationalSearch" data-value="tips" data-index="{{index}}" data-flag="0" data-title = "{{item.title}}"  data-keywords="{{item.title}}" wx:for-item="item" data-index="{{index}}" class="text_box" wx:for="{{tips}}">
+          {{item.title}}
+        </view>
+      </view>
+    <view height="{{conHeight}}">
+      <view bindtap="searchShow" class="section {{show?'sectionBack':''}}">
+        <ui-row>
+          <ui-col vertical-align="middle">
+            <view class="analogSearch" wx:if="{{keywords === ''}}">搜索地点</view>
+            <view class="analogSearch" wx:elif="{{keywords !== ''}}">{{analogSearch}}</view>
+          </ui-col>
+        </ui-row>
+      </view>
+
+
+      
+      
+
+      <ui-popup show="{{ show2 }}" position="bottom" mask-style="{{ { backgroundColor: 'transparent' } }}"  hide-on-tap="{{false}}" bindhide="bindhide" bindshow="bindshow">
+          <view wx:for="{{tips3}}" class="infobox" bindtap="associationalSearch"  data-value="tips3" data-index="{{index}}" data-flag="1" data-title = "{{item.title}}">
+            <ui-row height="25" space="10">
+              <ui-col vertical-align="middle">
+                <view>
+                  <text class="info-1">{{item.title}}</text>
+                  <text class="info-2" wx:if="item.type===0"></text>
+                  <text class="info-2" wx:elif="item.type===1">（公交车站）</text>
+                  <text class="info-2" wx:elif="item.type===2">（地铁站)</text>
+                  <text class="info-2" wx:elif="item.type===3">(行政区划)</text>
+                </view>
+              </ui-col>
+            </ui-row>
+            <ui-row height="20" space="10">
+              <ui-col vertical-align="middle">
+                <view class="overflow">
+                  <text class="info-2">{{item.tel}}</text>
+                </view>
+              </ui-col>
+            
+            </ui-row>
+            <ui-row height="20" space="10">
+              <ui-col vertical-align="middle">
+                <ui-mini-star value="4.5"></ui-mini-star>
+              </ui-col>
+            </ui-row>
+            <ui-row height="20" space="10">
+              <ui-col vertical-align="middle" class="info-3">{{item.address}}</ui-col>
+            </ui-row>
+          </view>
+          
+      </ui-popup>
+
+      <!-- <view hidden="{{!show3}}">11111test</view> -->
+      <ui-fixed-view bottom="0" left="0" right="0"  bindtap="toggle" wx:if="{{show3}}">
+        <view  style="width:100%;height:45px;z-index:1;background-color:#fff;width:100%;text-align:center;line-height:45px;" ></view>
+        查看“{{keywords}}”搜索结果
+      </ui-fixed-view> 
+      
+    
+      <map 
+      id="map" 
+      map-service="tencent"
+      height="{{conHeight}}"
+      markers="{{markers}}"
+      longitude="{{longitude}}"
+      latitude="{{latitude}}"
+      show-location
+      bindcallouttap="callouttap"
+      scale="18"
+      style="width:100%;height:{{conHeight-50}}px;margin-top:50px;">
+    </map>
+    </view>
+  </view>
+</template>
+
+
+<script>
+// mapSearchTips.js
+var key = '4216f7d550dc95ef4ac91e3c0ee6a19a'
+var lonlat
+var city
+export default {
+  config: {
+    "navigationBarTitleText": "腾讯地图webService"
+  },
+  data : {
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    conHeight:wx.DEFAULT_CONTENT_HEIGHT,
+    headerHeight:wx.DEFAULT_HEADER_HEIGHT,
+    tips: [],
+    tips2:[],
+    tips3:[],
+    keywords: '',
+    tempKeywords:'',
+    latitude: 39.855060,
+    longitude: 116.368650,
+    analogSearch:'',
+    show:false,
+    show2:false,
+    show3:false,
+    flag:null,
+    markers:[]
+  },
+  callouttap (e) {
+    this.toSysMap(39.855060, 116.368650, '北京引领视觉科技有限公司')
+  },
+  toSysMap (lat, lng, names) {
+    wx.openSysMap({
+      latitude: lat,
+      longitude: lng,
+      name: names,
+      success: function (res) {
+      },
+      fail: function (res) {
+      },
+      complete: function (res) {
+      }
+    })
+  },
+  bindhide(){
+    // this.show3 = true
+    console.log('显示')
+    this.setData({
+      show3:true
+    })
+  },
+  bindshow(){
+    console.log('隐藏')
+    // this.show3 = false
+    this.setData({
+      show3:false
+    })
+  },
+  toggle(){
+    // this.show2 = true
+    this.setData({
+      show2:true
+    })
+  },
+  bindtap2(){
+    // this.show2 = true
+    this.setData({
+      show2:true,
+      show:false
+    })
+    let that = this
+    // this.data.analogSearch = this.data.keywords 
+    this.setData({
+      analogSearch:this.data.keywords 
+    })
+    wx.request({
+      url: 'https://apis.map.qq.com/ws/place/v1/search', 
+      data: {
+        keyword: this.data.keywords,
+        boundary:'region(北京,0)',
+        key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+      },
+      success: function (res) {
+        // that.data.tips3 = res.data.data
+        that.setData({
+          tips3:res.data.data
+        })
+        console.log(that.data.tips3)
+      }
+    })
+  },
+  // 输入时请求接口实现联想词
+  bindInput(e){
+    console.log(e)
+    if(e === undefined){
+      return false
+    }
+    this.setData({
+      keywords:e.detail.value
+    })
+    // this.show = true
+    this.setData({
+      show:true
+    })
+    let that = this
+    wx.request({
+      url: 'https://apis.map.qq.com/ws/place/v1/suggestion', 
+      data: {
+        keyword: this.data.keywords,
+        region:'北京',
+        key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+      },
+      success: function (res) {
+        if(res.data.status === 120){
+          return false
+        }else{
+          // that.data.tips = res.data.data
+          that.setData({
+            tips:res.data.data
+          })
+        }
+      }
+    })
+  },
+  // 点击联想词实现搜索
+  associationalSearch(e){
+    //获取输入的字符
+    console.log(e)
+    let data,index,title,flag
+    
+    if(e.target.dataset.value === undefined){
+      data = e.currentTarget.dataset.value
+      index = e.currentTarget.dataset.index
+      title = e.currentTarget.dataset.title
+      flag = e.currentTarget.dataset.flag
+    }else{
+      data = e.target.dataset.value
+      index = e.target.dataset.index
+      title = e.target.dataset.title
+      flag = e.target.dataset.flag
+    }
+    let that = this
+    // this.show3 = false
+    this.setData({
+      show3:false
+    })
+    var keywords = title
+    console.log(title,keywords)
+    if(flag === "0"){
+      // this.analogSearch = keywords
+      // this.tempKeywords = keywords
+      // this.flag = 0
+      this.setData({
+        analogSearch:keywords,
+        tempKeywords:keywords,
+        flag:0
+      })
+      console.log(this.data.analogSearch,'this.data.analogSearch')
+    }else if(flag === "1"){
+      this.flag = 1
+      this.data.tempKeywords = keywords
+      this.setData({
+        tempKeywords:keywords,
+        flag:1
+      })
+    }
+    this.latitude = this.data[data][index].location.lat
+    this.longitude = this.data[data][index].location.lng
+    this.setData({
+      latitude:this.data[data][index].location.lat,
+      longitude:this.data[data][index].location.lng
+    })
+    let markersSearch = [
+      {
+      id: 1,
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      iconPath: '/images/posi.png',
+      label: {
+        fontSize: 12,
+        color: '#FF0000',
+        content: '',
+        x: 0.5,
+        y: 0.5
+      },
+      callout: {
+        content: `${this.data[data][index].title},${this.data[data][index].address}`,
+        color: '#000000',
+        fontSize: 16,
+        bgColor: '#ffffff',
+        borderRadius: 10,
+        display: 'ALWAYS',
+        padding: 6
+      },
+      width: 30,
+      height: 40
+    }]
+    console.log(markersSearch)            
+    // this.data.markers = JSON.parse(JSON.stringify(markersSearch))
+    this.setData({
+      markers:JSON.parse(JSON.stringify(markersSearch))
+    }) 
+
+    console.log(this.data.markers)
+
+    // this.show = false
+    // this.show2= false
+    
+    // this[data] = []
+
+    // this.tips = []
+    // this.tips2 = []
+
+    this.setData({
+      show:false,
+      show2:false,
+      tips:[],
+      tips2:[]
+    }) 
+    // console.log()
+  
+  },
+  // 点击搜索按钮或小键盘上搜索实现搜索
+  bindtap(){
+    this.show= false
+    console.log(this.show)
+    this.show2= true
+    let that = this
+    wx.request({
+      url: 'http://apis.map.qq.com/ws/place/v1/suggestion', 
+      data: {
+        keyword: this.keywords,
+        region:'北京',
+        key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+      },
+      success: function (res) {
+        console.log(res.data.data)
+        that.tips2 = res.data.data
+      }
+    })
+  },
+  bindfocus(){
+    this.show = true
+    console.log('huodejiaodian')
+    this.bindInput()
+  },
+  bindblur(){
+    this.show = false
+    console.log(this.show)
+  },
+  searchShow(){
+    console.log('searchShow')
+    // this.show = true
+    this.setData({
+      show:true
+    })
+    if(this.data.flag === 0){
+      // this.keywords = this.tempKeywords
+      this.setData({
+        keywords:this.data.tempKeywords
+      })
+    }else if(this.data.flag === 1){
+      return false
+    }
+  }
+}
+
+</script>
+
+<style lang="less">
+  // mapSearchTips.less
+  .analogSearch{
+    background-color:#fff;
+    border:1px solid #ccc;
+    border-radius:5px;
+    height:33px;
+    line-height:33px;
+    padding:0 12px;
+    color:#797474;
+  }
+  .infobox{
+    padding:10px 20px;
+    .mix-1px(0, 0, 1, 0, #ccc);
+    .info-1{
+      font-size:18px;
+      padding-right:5px;
+    }
+    .overflow{
+      .mix-text-overflow();
+    }
+    .info-2{
+      font-size:12px;
+    }
+    .info-3{
+      font-size:12px;
+      color:#666;
+    }
+  }
+
+.section {
+  padding: 5px 20px;
+  position: absolute;
+  width: 100%;
+  height: 46px;
+  z-index: 9;
+  input {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    outline: none;
+  }
+}
+
+.sectionBack{
+  background-color:#fff
+}
+
+.querySearch{
+  position: absolute;
+  width: 100%;
+  z-index: 9;
+  background-color:rgba(255,255,255,.8)
+}
+.text_box {
+  padding: 10px 20px;
+  line-height: 20px;
+}
+.map .section {
+  margin-bottom: 0;
+}
+
+.c-wrap {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+.info {
+max-width:180px;
+.mix-text-overflow();
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+margin-right: 25px;
+p {
+    padding: 0 5px;
+}
+}
+.a-name {
+font-size: 14px;
+color: #000;
+line-height: 20px;
+}
+.a-info {
+width: 100%;
+font-size: 12px;
+color: #000;
+line-height: 16px;
+.mix-text-overflow();
+}
+.click {
+position: absolute;
+left: calc(100% - 6px);
+top: 0;
+width: 50px;
+height: 100%;
+background-color: #FF6600;
+line-height: 48px;
+color: #fff;
+text-align: center;
+font-size: 16px;
+border-radius: 0 10px 10px 0; 
+}
+</style>
