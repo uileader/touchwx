@@ -82,6 +82,6 @@ TouchUI-WX是一套完全免费的微信小程序开发框架，包含丰富的U
 
 ## 相关项目
 
-<a href="https://github.com/uileader/touchuiwx" >Touch UI</a>
+<a href="https://github.com/uileader/touchui" >Touch UI</a>
 
 TouchUI是一套高质量移动端UI框架。基于vue.js框架，我们精心打造了上百种的移动端UI组件，几乎囊括了开发移动应用的所有细节，真正实现拿来即用，像搭积木一样开发移动应用。
