@@ -68,9 +68,7 @@ TouchUI-WX是一套完全免费的微信小程序开发框架，包含丰富的U
 
 ![img](http://www.touchui.io/img/minapp.jpg)
 
-##### 示例工程使用注意事项：
 
-访问官网<a href="https://github.com/uileader/touchuiwx">http://www.touchui.io/</a>
 
 ## 讨论组
 
