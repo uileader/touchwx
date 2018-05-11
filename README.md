@@ -8,7 +8,7 @@
 
 
 
-####  TouchUI部分组件
+####  TouchUI WX部分组件
 
 <img src="https://github.com/uileader/touchui/blob/master/img/2.png" />
 
