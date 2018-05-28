@@ -1,24 +1,25 @@
 <!--segment2.ui-->
 <template>
-      <ui-nav-bar slot="nav-bar" class="nav_bar" custom-style="{{ {backgroundColor:'#fff'} }}">
-        <ui-row height="46">
-          <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
-            <ui-icon type="arrow-left" size="16" color="#0dc1ae"></ui-icon>
-          </ui-col>
-          <ui-col vertical-align="middle">
-            <ui-segment bindchange="changTab" item-style="{{itemStyle}}" active-item-style="{{activeItemStyle}}">
-              <ui-segment-item>
-                好友去哪
-              </ui-segment-item>
-              <ui-segment-item>
-                我的好友
-              </ui-segment-item>
-            </ui-segment>
-          </ui-col>
-          <ui-col vertical-align="middle" align="center" width="80" >
-          </ui-col>
-        </ui-row>
-      </ui-nav-bar>
+  <view>
+    <ui-nav-bar slot="nav-bar" class="nav_bar" custom-style="{{ {backgroundColor:'#fff'} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
+          <ui-icon type="arrow-left" size="16" color="#0dc1ae"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle">
+          <ui-segment bindchange="changTab" item-style="{{itemStyle}}" active-item-style="{{activeItemStyle}}">
+            <ui-segment-item>
+              好友去哪
+            </ui-segment-item>
+            <ui-segment-item>
+              我的好友
+            </ui-segment-item>
+          </ui-segment>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="80" >
+        </ui-col>
+      </ui-row>
+    </ui-nav-bar>
     <view style="height:{{NAV_HEIGHT}}"></view>
     <view class="tabContent" wx:if="{{contentshow === 0}}">
       <view class="content_list">
@@ -34,6 +35,7 @@
         </view>
       </view>
     </view>
+  </view>
 </template>
 
 

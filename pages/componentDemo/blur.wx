@@ -1,5 +1,6 @@
 <!--image8.ui-->
 <template>
+  <view>
     <!-- 自定义导航 -->
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
       <ui-row height="46">
@@ -42,7 +43,7 @@
 
     <view class="sample_title">自定义高度</view>
     <ui-blur url="{{ url }}" height="300"></ui-blur>
-
+  </view>
 </template>
 
 <script>

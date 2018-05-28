@@ -1,5 +1,6 @@
 <!--slideView.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
       <ui-row height="46">
         <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -14,7 +15,7 @@
     </ui-nav-bar>
     <view style="height:{{NAV_HEIGHT}}"></view>
     <view class="sample_title">文字按钮</view>
-    <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" class="swipe-out-dome-1" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}"  height="{{ item.height}}">
+    <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}"  height="{{ item.height}}">
       <view slot="content">
         <ui-row height="80" class="top_tip" border-bottom>
           <ui-col width="80" align="center" vertical-align="middle">
@@ -44,7 +45,7 @@
 
 
     <view class="sample_title">图标按钮</view>
-    <ui-swipe-out height="60" data-index="{{index}}" operate-width="180" class="swipe-out-dome-2" bindchange="changeHandler2" value="{{item.switcher}}" wx:for="{{list2}}">
+    <ui-swipe-out height="60" data-index="{{index}}" operate-width="180" bindchange="changeHandler2" value="{{item.switcher}}" wx:for="{{list2}}">
       <view slot="content">
         <ui-row height="60" class="tel_list" border-bottom>
           <ui-col vertical-align="middle" align="left" space-left="15">
@@ -128,7 +129,8 @@
       </ui-swipe-out>
       </view>
     </view>
-  </template>
+  </view>
+</template>
   
 
 <script>
@@ -170,11 +172,7 @@ export default {
       this.setData({
         el:'undefined'
       })
-      // 实际使用时将该项id传给后台即可，不需要在前台真正删除数据。
-      // 前台直接删除数据会导致一些问题。
-      // setTimeout(() => {
-      //   this.list1.splice(index, 1, {})
-      // }, 500)
+     
     },
     tap (e) {
       console.log(e)
@@ -219,20 +217,7 @@ export default {
 </script>
 
 <style lang="less">
- .swipe-out-dome-1{
-   transition: height .25s ease-in;
-   overflow: hidden;
-   border-bottom: 1px solid #efefef;
- }
-.swipe-out-dome-1-content {
-  overflow: hidden;
-  background: #fff;
-  padding: 10px;
-  
-  .text {
-    font-size: 14px;
-  }
-}
+
 .dome_operate {
  background: #3ECBE8;
 }
@@ -246,21 +231,7 @@ export default {
   background: #f22;
 }
 
-.swipe-out-dome-2-content {
-  height: 90px;
-  overflow: hidden;
-  background: #fff;
-  padding: 10px;
-  border-bottom: 1px solid #efefef;
-  span {
-    color: #999;
-    font-size: 10px;
-  }
-  .text {
-    color: #000;
-    font-size: 14px;
-  }
-}
+
 .dome2_operate{
   background: #eee;
 }

@@ -149,10 +149,10 @@
     <view style="padding:20px;">
       <ui-row>
         <ui-col width="45">
-          <text>公里数<text>
+          <text>公里数</text>
         </ui-col>
         <ui-col>
-          <text style="color:#666">单位:（万公里）<text>
+          <text style="color:#666">单位:（万公里）</text>
         </ui-col>
       </ui-row>
     </view>
@@ -199,7 +199,7 @@
         </ui-col>
       </ui-row>
       <button bindtap="changeBufferValue" style="margin-top:10px;">开始缓冲</button>
-      <text>实际使用时，由音乐或视频的进度来控制slider的进度<text>
+      <text>实际使用时，由音乐或视频的进度来控制slider的进度</text>
     </view>
 
     <view class="sample_title">在popup中使用</view>
@@ -412,9 +412,6 @@ export default {
   },
   getformatval (num) {
     return parseInt(num / 60) + ':' + parseInt((num % 60 >= 10 ? '' : '0') + (num % 60))
-  },
-  gettooltipformat (e) {
-    return parseInt(num / 60) + ':' + (num % 60 >= 10 ? '' : '0') + (num % 60)
   },
   slider4(val){
     let value = val.detail.value

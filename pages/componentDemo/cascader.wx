@@ -66,8 +66,6 @@ export default {
     NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
     height:wx.DEFAULT_CONTENT_HEIGHT,
     show1:false,
-    title1: '请选择收货地址',
-    title2: '请选择',
     title3: '请选择',
     title4: '请选择',
     title5: '请选择',
@@ -75,7 +73,6 @@ export default {
     show3:false,
     show4:false,
     show5:false,
-    data1:[],
     data2: [{
         name: '美食',
         value: 'food',
@@ -138,48 +135,37 @@ export default {
           { name: '制造三科', value: 'DP_0203' }
         ]
       }]
-  },
-  showPop1(){
-    this.setData({
-      show1:true
-    })
-  },
-  showPop2(){
-    this.setData({
-      show2:true
-    })
-  },
-  showPop3(){
-    this.setData({
-      show3:true
-    })
-  },
-  showPop4(){
-    this.setData({
-      show4:true
-    })
-  },
-  showPop5(){
-    this.setData({
-      show5:true
-    })
-  },
-  handleselected1(e){
-    let data = e.detail
-
-    this.data.title1 = ""
-    for(var i =0;i<data.length;i++){
-      this.data.title1 += data[i].name+' '
-    }
-    this.setData({
-      show1:false,
-      title1:this.data.title1
-    })
-  },
-  navigateBack () {
-    wx.navigateBack()
-  },
-  handleselected2(e){
+    },
+    showPop1(){
+      this.setData({
+        show1:true
+      })
+    },
+    showPop2(){
+      this.setData({
+        show2:true
+      })
+    },
+    showPop3(){
+      this.setData({
+        show3:true
+      })
+    },
+    showPop4(){
+      this.setData({
+        show4:true
+      })
+    },
+    showPop5(){
+      this.setData({
+        show5:true
+      })
+    },
+   
+    navigateBack () {
+      wx.navigateBack()
+    },
+    handleselected2(e){
     let data = e.detail
     console.log(data)
 

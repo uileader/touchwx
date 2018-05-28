@@ -49,7 +49,8 @@
       rangeDate: '',
       rangestart: '',
       rangeend: '',
-      height: wx.WIN_HEIGHT
+      height: wx.WIN_HEIGHT,
+      differ:''
     },
     radioinit (thisdate) {
       
@@ -79,7 +80,19 @@
         rangeend:`${end[1]}月${end[2]}日`
       })
     },
- 
+
+    // 范围选择，根据选择日期，计算几晚
+    calculationDays () {
+      let start, end
+      start = Date.parse(this.data.dateobj.rangedate[0])
+      end = Date.parse(this.data.dateobj.rangedate[1])
+      this.data.differ = Math.floor((end - start) / (24 * 3600 * 1000))
+      this.data.differShow = true
+      this.setData({
+        differ:this.data.differ,
+        differShow:true
+      })
+    },
     selectedStartHandler (e) {
       
       this.rangeDate = e
@@ -91,13 +104,14 @@
         var currPage = pages[pages.length - 1];   //当前页面
         var prevPage = pages[pages.length - 2];  
         console.log(this.data.dateobj.rangedate[0],this.data.dateobj.rangedate[1],'chuanhuiqude') 
+        this.calculationDays()
         prevPage.setData({
           rangestart:this.data.dateobj.rangedate[0],
-          rangeend:this.data.dateobj.rangedate[1]
+          rangeend:this.data.dateobj.rangedate[1],
+          differ:this.data.differ
         })
         wx.navigateBack()
       }, 500)
-      this.calculationDays()
       this.rangeinit(this.data.dateobj)
     },
     failedHandler (err) {

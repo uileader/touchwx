@@ -26,17 +26,15 @@
         min="0"
         max="10000"
         key-step="1000"
-        step="100"
         number-size="12"
         line-width="1"
         step-width='5'
         pointer-width="1"
-        number-padding="10"
         value-style="{{valueStyle}}"
       ></ui-ruler>
     </view>
 
-    <view class="ruler_wrap ruler_wrap2">
+    <view class="ruler_wrap">
       <view class="title1">身高</view>
       <view class="title2">选择我的身高(CM)</view>
       <ui-ruler
@@ -52,7 +50,6 @@
         line-width="1"
         step-width='10'
         pointer-width="1"
-        number-padding="10"
         mode="top"
         value-style="{{valueStyle}}"
       ></ui-ruler>

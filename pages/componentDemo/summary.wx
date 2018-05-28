@@ -1,5 +1,6 @@
 <!--summary.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
       <ui-row height="46">
         <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -27,7 +28,7 @@
     </view>
 
     <view class="sample_title">外部控制</view>
-    <view class="store_list" wx:for="{{list}}" wx:for-item="item">
+    <view wx:for="{{list}}" wx:for-item="item">
       <ui-row height="80" class="collect_content" border-bottom>
         <ui-col vertical-align="middle" align="center" width="80">
           <image
@@ -71,6 +72,7 @@
         </ui-col>
       </ui-row>
     </view>
+  </view>
 </template>
 
 

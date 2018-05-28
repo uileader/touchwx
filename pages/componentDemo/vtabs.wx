@@ -12,7 +12,7 @@
         </ui-col>
       </ui-row>
     </ui-nav-bar>
-    <view style="height:{{NAV_HEIGHT}}"></view>
+    <view style="margin-top:{{NAV_HEIGHT}}"></view>
     <ui-row>
       <ui-col span="3">
         <ui-v-tabs 
@@ -29,12 +29,15 @@
       </ui-v-tabs>
       </ui-col>
       <ui-col>
-        <view class="goods-box">
-        <view class="goods-list" wx:for="{{tabContentData.subCategoryList}}" wx:for-index="idx">
-            <image class="imgbox" src="{{item.imageUrl}}"></image>
-            <view class="small-title">{{item.categoryName}}</view>
-        </view>
-    </view>
+        <scroll-view scroll-y style="{{ {height:height+'px'} }}">
+          <view class="goods-box">
+            <view class="goods-list" wx:for="{{tabContentData.subCategoryList}}" wx:for-index="idx">
+                <image class="imgbox" src="{{item.imageUrl}}"></image>
+                <view class="small-title">{{item.categoryName}}</view>
+            </view>
+          </view>
+        </scroll-view>
+        
       </ui-col>
     </ui-row>
     </view>
@@ -70,6 +73,39 @@ export default {
       {
         subCategoryList: [
           {
+            categoryName: '男士羽绒/棉服',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1B/83/rBACW1mlMEiAWNITAAAiWsyngD0082.jpg'
+          }, {
+            categoryName: '男士风衣/大衣',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/18/76/rBACVFmSkKqAHYBNAAAfdj1aPOI825.jpg'
+          }, {
+            categoryName: '男士皮衣/棉夹克',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/15/7B/rBACW1lTWD-APUeLAAAgYMZ9cH4426.jpg'
+          }, {
+            categoryName: '男士羊绒/毛衫',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEdiOAfwQUAAAdaKb5jVI059.jpg'
+          }, {
+            categoryName: '男士衬衫',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdjqAXa7NAAAcW-pnhDk339.jpg'
+          }, {
+            categoryName: '男士针织衫',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdhqAdI2cAAAdtV7BASE873.jpg'
+          }, {
+            categoryName: '男士西服',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1D/10/rBACYVnEdp6ASDIYAAAcoXEchKM497.jpg'
+          }, {
+            categoryName: '男士卫衣',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1B/83/rBACW1mlMEiAWNITAAAiWsyngD0082.jpg'
+          }, {
+            categoryName: '男士马甲',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1B/5C/rBACVFnEdn6AeSRuAAAdMuV88TU961.jpg'
+          }, {
+            categoryName: '男士T桖',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/1D/11/rBACW1nEdrqAFS0pAAAbGxuAh3s074.jpg'
+          }, {
+            categoryName: '男士POLO衫',
+            imageUrl: 'https://bfs.biyao.com/group1/M00/13/BF/rBACVFlTUwaAZDEUAAAXdtIxOTE832.jpg'
+          },{
             categoryName: '男士羽绒/棉服',
             imageUrl: 'https://bfs.biyao.com/group1/M00/1B/83/rBACW1mlMEiAWNITAAAiWsyngD0082.jpg'
           }, {

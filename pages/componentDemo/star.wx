@@ -37,7 +37,7 @@
       <view class="sample_title">自定义评价文字</view>
       <view class="star-demo">
         <view class="result">{{starResult}}</view>
-        <ui-star  bindchange="handleStar"></ui-star>
+        <ui-star bindchange="handleStar"></ui-star>
       </view>
   
       <view class="sample_title">只读评价</view>
@@ -185,10 +185,7 @@ export default {
             stars3:this.data.stars3
         })
         }
-    },
-  mounted () {
-
-  }
+    }
 }
 
 </script>

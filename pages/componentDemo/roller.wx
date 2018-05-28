@@ -7,7 +7,7 @@
             <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
         </ui-col>
         <ui-col vertical-align="middle" align="center">
-          <view>吸顶容器</view>
+          <view>滚动公告</view>
         </ui-col>
         <ui-col vertical-align="middle" align="center" width="60">
         </ui-col>

@@ -1,5 +1,6 @@
 <!--tabs4.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
       <ui-row height="46">
         <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -205,7 +206,7 @@
               </ui-row>
             </ui-col>
             <ui-col align="center" vertical-align="middle" class="con1_center" bindtap="changeAir">                                                        
-              <image src="http://images.uileader.com/20180319/64d23e80-7876-44fd-a742-3776b6a11c96.png" class="backbg" style="width:30px;height:30px;" mode="aspectFill" style="transform:rotatae{{ratate}}deg" ></image>
+              <image src="http://images.uileader.com/20180319/64d23e80-7876-44fd-a742-3776b6a11c96.png" class="backbg" style="width:30px;height:30px;transform:rotate({{ratate}})deg" mode="aspectFill"></image>
               <image src="http://images.uileader.com/20180319/5ab25fa0-2a64-4d56-b03f-6e0512c46507.png" class="back" style="width:30px;height:30px;" mode="aspectFill" ></image>
             </ui-col>
             <ui-col align="right">
@@ -263,7 +264,7 @@
               </ui-row>
             </ui-col>
             <ui-col align="center" vertical-align="middle" class="con1_center" bindtap="changeAir">
-              <image src="http://images.uileader.com/20180319/64d23e80-7876-44fd-a742-3776b6a11c96.png" class="backbg" style="width:30px;height:30px;" mode="aspectFill" style="transform': rotate{{ratate}}deg" ></image>
+              <image src="http://images.uileader.com/20180319/64d23e80-7876-44fd-a742-3776b6a11c96.png" class="backbg" style="width:30px;height:30px;transform': rotate({{ratate}})deg" mode="aspectFill" ></image>
               <image src="http://images.uileader.com/20180319/5ab25fa0-2a64-4d56-b03f-6e0512c46507.png" class="back" style="width:30px;height:30px;" mode="aspectFill" ></image>
             </ui-col>
             <ui-col align="right">
@@ -300,6 +301,7 @@
             <button>查询火车票</button>
           </view>
       </view>
+  </view>
 </template>
 
 
@@ -511,20 +513,16 @@ export default {
     console.log(key,index)
     if (key === 'current1') {
       console.log(this.data.films[index])
-      // this.filmData = this.films[index]
 
       this.setData({
         filmData:this.data.films[index]
       })
       if (this.data.filmData.film !== '') {
-        // this.filmData = this.films[index]
-        // this.isnull = false
         this.setData({
           filmData:this.data.films[index],
           isnull:false
         })
       } else {
-        // this.isnull = true
         this.setData({
           isnull:true
         })
@@ -581,27 +579,8 @@ export default {
 </script>
 
 <style lang="less">
-  .ui-tabs {
+.ui-tabs {
   padding-bottom: 1px;
-  &.demo1{
-    .swiper-slide{
-      width:auto;
-      flex: none !important;
-    }
-    .active {
-      border-bottom: 1px solid #e60012;
-      color: #e60012;
-    }
-  } 
-  &.demo2{
-    .swiper-slide{
-      color: #596183
-    }
-    .active {
-      border-bottom: 1px solid #2eba77;
-      color: #2eba77; 
-    }
-  }
 }
 .film {
   padding: 5px 10px;

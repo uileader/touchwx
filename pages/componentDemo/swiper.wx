@@ -49,7 +49,7 @@
 
     <ui-divider>自定义小圆点</ui-divider>
     <view class="swiper-container">
-      <swiper circular autoplay="auto" interval="5000" duration="500" bindchange="swiperChange" class="swiper">
+      <swiper circular autoplay interval="5000" duration="500" bindchange="swiperChange" class="swiper">
         <block wx:for="{{items4}}" wx:key="unique">
           <swiper-item>
             <image src="{{item.src}}" class="img"></image>

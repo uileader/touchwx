@@ -14,35 +14,19 @@
       </ui-nav-bar>
       <view style="height:{{NAV_HEIGHT}}"></view>
     <view class="sample_title">
-      城市选择（单选，不含图标）
+      城市选择
     </view>
     <view class="sample_content" bindtap="showIndexList1">
       <text style="font-size: 14px;">{{country1}}</text>
-      <ui-icon type="arrow-down"><ui-icon>
+      <ui-icon type="arrow-down"></ui-icon>
     </view>
-
-    <!-- <view class="sample_title">
-      汽车品牌选择（单选，含图标）
-    </view>
-    <view class="sample_content" bindtap="showIndexList2">
-      <text style="font-size: 14px;">{{country2}}</text>
-      <ui-icon type="arrow-down"><ui-icon>
-    </view>
-
-    <view class="sample_title">
-      仿微信通讯录（可切换单选与多选）
-    </view>
-    <view class="sample_content" bindtap="showIndexList3">
-      <text style="font-size: 14px;">{{country3}}</text>
-      <ui-icon type="arrow-down"><ui-icon>
-    </view> -->
 
     <view class="sample_title">
       自定义数据格式
     </view>
     <view class="sample_content" bindtap="showIndexList4">
         <text style="font-size: 14px;">{{currency}}</text>
-        <ui-icon type="arrow-down"><ui-icon>
+        <ui-icon type="arrow-down"></ui-icon>
     </view>
 
   </template>
@@ -69,56 +53,16 @@
         url: `/pages/componentDemo/indexList1?country=${this.data.country1}`
       })
     },
-    // showIndexList2 () {
-    //   wx.navigateTo({
-    //     url: '/pages/componentDemo/indexList2'
-    //   })
-    // },
-    // showIndexList3 () {
-    //   wx.navigateTo({
-    //     url: '/pages/componentDemo/indexList3'
-    //   })
-    // },
     showIndexList4 () {
       wx.navigateTo({
         url: '/pages/componentDemo/indexList4'
       })
     },
-    onShow:function(){
-      // console.log(this.data.country1)
-    }
+  
   }
   
   </script>
   
   <style lang="less">
-    // indexList.less
-  .swiper-item {
-    display: block;
-    height: 100%;
-  }
-  /*swiper end*/
-  .swiper-item.items {
-    padding: 20px;
-    font-size: 14px;
-    .tips {
-      background: #fff;
-      border-radius: 10px;
-      padding: 10px 10px 20px;
-      line-height: 2;
-      .tips-img {
-        width: 100%;
-        height: 150px;
-      }
-    }
-  }
-  .tabs {
-    background: #fff;
-  }
-  
-  .demo-content {
-    padding: 10px;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-  }
+
   </style>

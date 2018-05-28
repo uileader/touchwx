@@ -61,6 +61,7 @@
       rangeend: '',
       rangestart2: '',
       rangeend2: '',
+      differ2:'',
       height: wx.WIN_HEIGHT
     },
     radioinit (thisdate) {
@@ -151,13 +152,15 @@
         var currPage = pages[pages.length - 1];   //当前页面
         var prevPage = pages[pages.length - 2];  
         console.log(this.data.dateobj.rangedate2[0],this.data.dateobj.rangedate2[1],'chuanhuiqude') 
+        this.calculationDays2()
+        
         prevPage.setData({
           rangestart2:this.data.dateobj.rangedate2[0],
-          rangeend2:this.data.dateobj.rangedate2[1]
+          rangeend2:this.data.dateobj.rangedate2[1],
+          differ2:this.data.differ2
         })
         wx.navigateBack()
       }, 200)
-      this.calculationDays2()
       this.rangeinit2(this.data.dateobj)
     },
     failedHandler2 (err) {

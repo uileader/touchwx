@@ -1,5 +1,6 @@
 <!--tagGroup.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
         <ui-row height="46">
           <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -63,7 +64,7 @@
     </view>
 
   
-    
+  </view>
 </template>
   
 
@@ -81,7 +82,6 @@ const tagStyle0 = `
   align-items: center;
   line-height: 20px;`
 
-  // const tagStyle0 = 'border: 1px solid #3693E8;background: #ffffff;color: #3693E8;padding: 0 5px;border-radius: 10px;text-align: center;height: 25px;display: flex;justify-content: center;align-items: center;line-height: 20px;'
 
 const tagStyle00 = `background: #efefef;
   color: #555;
@@ -187,7 +187,7 @@ export default {
     NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
     list0: [{
       text: '速度与激情8',
-      tagStyle: 'border: 1px solid #3693E8;background: #ffffff;color: #3693E8;padding: 0 5px;border-radius: 10px;text-align: center;height: 25px;display: flex;justify-content: center;align-items: center;line-height: 20px;'
+      tagStyle: tagStyle0
     }, {
       text: '铁道飞虎',
       tagStyle: tagStyle0

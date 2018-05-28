@@ -1,5 +1,6 @@
 <!--image8.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar"  custom-style="{{ {backgroundColor:'rgba(255,255,255,0)',color:'#fff'} }}">
       <ui-row height="46">
         <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="navigateBack">
@@ -39,7 +40,7 @@
         </view>
       </view>
     </view>
-    
+  </view>
 </template>
 
 <script>

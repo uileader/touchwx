@@ -29,9 +29,9 @@
         <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask8">黑色毛玻璃效果（仅IOS）</button>
       </view>
     </view>
-    <ui-mask show="{{showMask1}}" hide-delay="500" >
+    <ui-mask show="{{showMask1}}" hide-delay="500" bindtap="handleShowMask1">
       <view class="content">
-        <button type="success" data-show="{{ false }}" bindtap="handleShowMask1">关闭遮罩</button>
+        <button type="success" data-show="{{ false }}" catchtap="handleShowMask1">关闭遮罩</button>
       </view>
     </ui-mask>
     <ui-mask show="{{showMask2}}" top="{{top2}}">
@@ -39,7 +39,7 @@
         <button type="success" data-show="{{ false }}" bindtap="handleShowMask2">关闭遮罩</button>
       </view>
     </ui-mask>
-    <ui-mask show="{{showMask3}}" hide-on-tap="{{false}}">
+    <ui-mask show="{{showMask3}}" hide-on-tap="{{false}}" bindtap="masktap">
       <view class="content">
         <button type="success" data-show="{{ false }}" bindtap="handleShowMask3">关闭遮罩</button>
       </view>
@@ -115,6 +115,12 @@ export default {
       'background-color':'rgba(255, 255, 255, 0)',
     }
   },
+  handleShowMask(){
+    console.log('1')
+  },
+  masktap(e){
+    console.log(e)
+  },
   handleTap () {
     wx.showToast({
       title: 'tap...'
@@ -133,6 +139,7 @@ export default {
     })
   },
   handleShowMask3 (e) {
+    console.log(e)
     let show = e.currentTarget.dataset.show
     this.setData({
       showMask3: show

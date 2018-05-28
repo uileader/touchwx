@@ -134,7 +134,7 @@
       rangeCalendarDefault: false,
       // 时间差
       differ: '',
-      differ2: '',
+      differ2: '2',
       differShow: false,
       rangestart: '',
       rangeend: '',
@@ -183,28 +183,6 @@
     rangeCalendarDefaultOpen () {
       wx.navigateTo({
         url: '/pages/componentDemo/v-calendar2'
-      })
-    },
-    // 范围选择，根据选择日期，计算几晚
-    calculationDays () {
-      let start, end
-      start = Date.parse(this.data.dateobj.rangedate[0])
-      end = Date.parse(this.data.dateobj.rangedate[1])
-      this.data.differ = Math.floor((end - start) / (24 * 3600 * 1000))
-      this.data.differShow = true
-      this.setData({
-        differ:this.data.differ,
-        differShow:true
-      })
-    },
-    // 默认选中的。范围选择，根据选择日期，计算几晚
-    calculationDays2 () {
-      let start, end
-      start = Date.parse(this.data.dateobj.rangedate2[0])
-      end = Date.parse(this.data.dateobj.rangedate2[1])
-      this.data.differ2 = Math.floor((end - start) / (24 * 3600 * 1000))
-      this.setData({
-        differ2:this.data.differ2
       })
     },
     onLoad () {
