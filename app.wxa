@@ -108,8 +108,8 @@ export default {
       backgroundColor: '#fff',
       list: [{
           pagePath: 'pages/index',
-          iconPath: 'images/com.png',
-          selectedIconPath: 'images/com1.png',
+          iconPath: 'images/component.png',
+          selectedIconPath: 'images/component1.png',
           text: '组件'
         },
         {
