@@ -25,7 +25,7 @@
                   </view>
                   <view>
                     <view class="title">定位</view>
-                    <view class="position">
+                    <view class="position" bindtap="positionTap">
                       <ui-icon type="home-map" color="#00ab48"></ui-icon>
                       {{position}}</view>
                   </view>
@@ -433,7 +433,8 @@
         place: '北京',
         search: '输入城市名或拼音查询',
         country: '',
-        position:'北京'
+        position:'定位中……',
+        isTap:false
       
     },
     tapTag(e){
@@ -456,13 +457,25 @@
       wx.navigateBack()
  
     },
+    positionTap(){
+      if(this.data.isTap){
+        let place = this.data.position
+        var pages = getCurrentPages()
+        var currPage = pages[pages.length - 1];   //当前页面
+        var prevPage = pages[pages.length - 2];
+        prevPage.setData({
+          country1:this.data.position
+        })
+        wx.navigateBack()
+      }else{
+        return false
+      }
+    },
     singleTap(e){
-      console.log(e)
       let index = e.detail.index
       var pages = getCurrentPages()
       var currPage = pages[pages.length - 1];   //当前页面
       var prevPage = pages[pages.length - 2];
-      console.log(this.data.tagsData[index].text)
       prevPage.setData({
         country1:this.data.tagsData[index].text
       })
@@ -476,8 +489,11 @@
         },
         success: (res) => {
           console.log(res.data.result.ad_info.city)
-          this.position = res.data.result.ad_info.city
-          console.log(this.position)
+          this.setData({
+            position:res.data.result.ad_info.city,
+            isTap:true
+          })
+          
         }
       })
     },

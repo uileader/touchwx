@@ -1,5 +1,6 @@
 <!--indexList.ui-->
 <template>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
         <ui-row height="46">
           <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -28,8 +29,8 @@
         <text style="font-size: 14px;">{{currency}}</text>
         <ui-icon type="arrow-down"></ui-icon>
     </view>
-
-  </template>
+  </view>
+</template>
   
   
   <script>
