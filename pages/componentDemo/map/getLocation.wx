@@ -33,7 +33,6 @@
         </ui-row>
       <button type="primary" bindtap="getLocation">获取位置</button>
       <button bindtap="openLocation">查看位置</button>
-      <view class="tips">注：PC开发环境下由于没有GPS定位模块，建议在移动设备上查看效果</view>
     </view>
   </view>
 </template>

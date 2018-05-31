@@ -51,11 +51,11 @@ export default {
           ]
         },
         {
-          title: '选项卡 tabs',
+          title: '横向选项卡 tabs',
           items: [
-            { title: '横向模式-自定义样式', link: '/pages/componentDemo/tabs' },
-            { title: '横向模式-全局tabs', link: '/pages/componentDemo/tabs2' },
-            { title: '横向模式-内容共用一个容器', link: '/pages/componentDemo/tabs3' }
+            { title: '自定义样式', link: '/pages/componentDemo/tabs' },
+            { title: '全局tabs', link: '/pages/componentDemo/tabs2' },
+            { title: '内容共用一个容器', link: '/pages/componentDemo/tabs3' }
           ]
         },
         {

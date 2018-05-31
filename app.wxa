@@ -20,7 +20,6 @@ export default {
       'pages/home/graphicalList',
       'pages/home/mapList',
       'pages/home/mapList2',
-      'pages/home/mapList3',
       'pages/home/graphicalList2',
       'pages/componentDemo/slider',
       'pages/componentDemo/ruler',

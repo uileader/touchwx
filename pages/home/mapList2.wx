@@ -52,7 +52,8 @@ export default {
           { title: '计算距离', link: '/pages/componentDemo/mapsdk/distanceCalculation' },
           { title: '路线选择与规划', link: '/pages/componentDemo/mapsdk/routePlanning' },
           { title: '绘制静态图', link: '/pages/componentDemo/mapsdk/drawStaticMap' },
-          { title: '地址逆解析', link: '/pages/componentDemo/mapsdk/mapComprehensive' }
+          { title: '地址逆解析', link: '/pages/componentDemo/mapsdk/mapComprehensive' },
+          { title: '获取粗略与精确定位', link: '/pages/componentDemo/mapService/mapSearchInput' }
         ]
       }
     ]
