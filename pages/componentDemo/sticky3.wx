@@ -14,7 +14,7 @@
           </ui-col>
         </ui-row>
       </ui-nav-bar>
-      <view style="height:{{NAV_HEIGHT}}"></view>
+      <view style="height:{{NAV_HEIGHT}}px"></view>
     <swiper indicator-dots circular style="height: {{ swiperHeight }}px;">
       <swiper-item wx:for="{{items1}}" wx:for-item="item" wx:for-index="index">
         <image src="{{ item.src }}" mode="simple"></image>
@@ -184,7 +184,7 @@ export default {
     "scrollType":"div"
   },
   data :{
-      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT,
       popup_NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT,
       popupHeight: wx.WIN_HEIGHT - (wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT),
       scrollTop: 0,

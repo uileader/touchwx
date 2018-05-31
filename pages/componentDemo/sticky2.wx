@@ -11,7 +11,7 @@
         </ui-col>
       </ui-row>
     </ui-nav-bar>
-      <view style="height:{{NAV_HEIGHT}}"></view>
+      <view style="height:{{NAV_HEIGHT}}px"></view>
     <image
     src="http://images.uileader.com/20171117/a1fa37d0-fbd7-4316-be27-1136a97b459b.jpg"
     style="height:{{imgHeight}}px"
@@ -66,7 +66,7 @@ for (let i = 1; i <= 30; i++) {
     "navigationBarTextStyle":"black"
   },
   data : {
-    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+    NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT,
     items: items,
     imgHeight: parseInt(wx.WIN_WIDTH / 1125 * 628),
     scrollTop:0
