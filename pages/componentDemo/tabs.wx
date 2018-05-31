@@ -16,7 +16,7 @@
       </ui-nav-bar>
     <view style="height:{{NAV_HEIGHT}}"></view>
     <ui-divider>基本使用</ui-divider>
-    <ui-tabs index="{{ current1 }}" bindchange="handleChange1">
+    <ui-tabs index="{{ current1 }}" probe="1" bindchange="handleChange1">
       <ui-tab>选项卡一</ui-tab>
       <ui-tab>选项卡二</ui-tab>
     </ui-tabs>
@@ -31,7 +31,7 @@
 
 
     <ui-divider>ink-bar</ui-divider>
-    <ui-tabs index="{{ current2 }}" bindchange="handleChange2" ink-bar active-tab-style="{{activeTabStyle}}" ink-bar-style="{{inkBarStyle}}">
+    <ui-tabs index="{{ current2 }}" probe="1" bindchange="handleChange2" ink-bar active-tab-style="{{activeTabStyle}}" ink-bar-style="{{inkBarStyle}}">
       <ui-tab>选项卡一</ui-tab>
       <ui-tab>选项卡二</ui-tab>
       <ui-tab>选项卡三</ui-tab>
@@ -58,7 +58,7 @@
     <ui-divider>居中显示</ui-divider>
     <view style="background-color:#f5f5f5">
       <view style="width:120px;margin:0 auto">
-        <ui-tabs  width="120" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current3 }}"  bindchange="handleChange3">
+        <ui-tabs  width="120" probe="1" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current3 }}"  bindchange="handleChange3">
           <ui-tab>
             <view class="item item-right">精选</view>
           </ui-tab>
@@ -80,7 +80,7 @@
     <ui-divider>结合角标使用</ui-divider>
     <view style="background-color:#f5f5f5">
     <view style="width:120px;margin:0 auto">
-      <ui-tabs width="120" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current4 }}"  bindchange="handleChange4">
+      <ui-tabs width="120" probe="1" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current4 }}"  bindchange="handleChange4">
       <ui-tab>
         <view class="item item-right">精选</view>
       </ui-tab>
@@ -105,7 +105,7 @@
     </swiper>
 
     <ui-divider>与图标结合使用：图标在左</ui-divider>
-    <ui-tabs class="type-icon" index="{{ current5 }}"  bindchange="handleChange5">
+    <ui-tabs class="type-icon" probe="1" index="{{ current5 }}"  bindchange="handleChange5">
       <ui-tab>
         <view>
           <ui-icon type="mail"></ui-icon>邮件
@@ -136,7 +136,7 @@
     </swiper>
 
     <ui-divider>与图标结合使用：图标在右</ui-divider>
-    <ui-tabs class="type-icon" index="{{ current6 }}"  bindchange="handleChange6">
+    <ui-tabs class="type-icon" probe="1" index="{{ current6 }}"  bindchange="handleChange6">
       <ui-tab>
         <view>
           邮件<ui-icon type="mail"></ui-icon>
@@ -182,7 +182,7 @@
     </swiper>
 
     <ui-divider>只支持点击标签切换</ui-divider>
-    <ui-tabs index="{{ current8 }}"  bindchange="handleChange8">
+    <ui-tabs index="{{ current8 }}" probe="1"  bindchange="handleChange8">
       <ui-tab>选项卡一</ui-tab>
       <ui-tab>选项卡二</ui-tab>
     </ui-tabs>
@@ -191,7 +191,7 @@
 
 
     <ui-divider>自定义颜色</ui-divider>
-    <ui-tabs class="type-color" index="{{ current9 }}"  bindchange="handleChange9" active-tab-style="{{activeTabStyle2}}">
+    <ui-tabs class="type-color" index="{{ current9 }}" probe="1"  bindchange="handleChange9" active-tab-style="{{activeTabStyle2}}">
       <ui-tab>选项卡一</ui-tab>
       <ui-tab>选项卡二</ui-tab>
     </ui-tabs>
@@ -208,7 +208,7 @@
 
 
     <ui-divider>超出屏幕宽度</ui-divider>
-    <ui-tabs index="{{ current11 }}" bounce="{{false}}"  bindchange="handleChange11">
+    <ui-tabs index="{{ current11 }}" probe="1" bounce="{{false}}"  bindchange="handleChange11">
       <ui-tab>选项卡一</ui-tab>
       <ui-tab>选项卡二</ui-tab>
       <ui-tab>选项卡三</ui-tab>
@@ -293,6 +293,7 @@ export default {
     wx.navigateBack()
   },
   handleChange1 (e) {
+    console.log(e,'handleChange1')
     let index = e.detail.index
     this.setData({
       current1:index
