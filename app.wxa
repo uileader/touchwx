@@ -41,6 +41,7 @@ export default {
       'pages/componentDemo/sticky',
       'pages/componentDemo/sticky2',
       'pages/componentDemo/sticky3',
+      'pages/componentDemo/sticky4',
       'pages/componentDemo/swiper',
       'pages/componentDemo/accordion',
       'pages/componentDemo/summary',

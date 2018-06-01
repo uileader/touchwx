@@ -49,7 +49,8 @@ export default {
           items: [
               { title: '基本使用', link: '/pages/componentDemo/sticky' },
               { title: '多个吸顶容器共用', link: '/pages/componentDemo/sticky2' },
-              { title: '应用案例', link: '/pages/componentDemo/sticky3' }
+              { title: '应用案例', link: '/pages/componentDemo/sticky3' },
+              { title: 'sticky和tabs共用', link: '/pages/componentDemo/sticky4' }
           ]
         },
         {
