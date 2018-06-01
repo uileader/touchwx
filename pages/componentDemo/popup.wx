@@ -27,7 +27,7 @@
 
     </view>
 
-    <ui-popup show="{{show1}}">
+    <ui-popup show="{{show1}}" bindinit="bindinit" bindshow="bindshow">
       <view>
         <ui-row height="40">
           <ui-col vertical-align="middle">开关</ui-col>
@@ -224,6 +224,12 @@ export default {
     this.setData({
       show2:false
     })
+  },
+  bindinit(e){
+    console.log('bindinit')
+  },
+  bindshow(){
+    console.log('bindshow')
   },
   handleShow3(){
     this.setData({
