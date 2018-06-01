@@ -1,4 +1,5 @@
 <template>
+  <view>
   <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
     <ui-row height="46">
       <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -52,6 +53,20 @@
     <ui-popup show="{{show5}}" position="top" width="100%" height="300" top="{{ poptpTop }}" mask-style="{{ {backgroundColor:'rgba(255,255,255,0.6)',top:poptpTop+'px'} }}">
       <ui-cascader show-title="{{false}}" bindselected="handleselected5" data="{{data3}}"></ui-cascader>
     </ui-popup>
+
+    <view class="sample_title">动态加载数据</view>
+    <ui-row height="40" border-top border-bottom>
+      <ui-col span="3" vertical-align="middle" align="right" space-right="10">
+        所在地区
+      </ui-col>
+      <ui-col span="9" bindtap="showPop1" vertical-align="middle">
+        {{title1}}
+      </ui-col>
+    </ui-row>
+    <ui-popup show="{{show1}}" position="bottom" width="100%" height="300">
+      <ui-cascader data="{{data1}}" bindselected="handleselected1" ></ui-cascader>
+    </ui-popup>
+  </view>
 </template>
 
 <script>
@@ -66,6 +81,8 @@ export default {
     NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
     height:wx.DEFAULT_CONTENT_HEIGHT,
     show1:false,
+    title1: '请选择',
+    title2: '请选择',
     title3: '请选择',
     title4: '请选择',
     title5: '请选择',
@@ -73,6 +90,7 @@ export default {
     show3:false,
     show4:false,
     show5:false,
+    data1:[],
     data2: [{
         name: '美食',
         value: 'food',
@@ -165,6 +183,17 @@ export default {
     navigateBack () {
       wx.navigateBack()
     },
+    handleselected1(e){
+      let data = e.detail
+      this.data.title1 = ""
+      for (var i = 0; i < data.length; i++) {
+        this.data.title1 += data[i].name + ' '
+      }
+      this.setData({
+        show1: false,
+        title1: this.data.title1
+      })
+    },
     handleselected2(e){
     let data = e.detail
     console.log(data)
@@ -214,6 +243,97 @@ export default {
     },
     onReady: function () {
       console.log(this.data.data2)
+      this.setData({
+        data1 :[{
+        name: '美食',
+        value: 'food',
+        children: [
+          {
+            name: '火锅',
+            value: 'chafing dish',
+            children: [
+              { name: '川味火锅', value: 'SiChuan chafing dish' },
+              { name: '老北京火锅', value: 'Beijing chafing dish' },
+              { name: '牛肉火锅', value: 'Beef chafing dish' }
+            ]
+          }, {
+            name: '西餐',
+            value: 'western food',
+            children: [
+              { name: '意大利菜', value: 'Italy food' },
+              { name: '法国菜', value: 'France food' },
+              { name: '汉堡', value: 'Hamburg' }
+            ]
+          }
+        ]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [
+          {
+            name: '周边游',
+            value: 'tour around',
+            children: [
+              { name: '景点', value: 'Scenic spot' },
+              { name: '公园', value: 'Park' },
+              { name: '名胜古迹', value: 'Historical sites' }
+            ]
+          }, {
+            name: '海外游',
+            value: 'tour aboard',
+            children: [
+              { name: '美国游', value: 'American tour' },
+              { name: '欧洲游', value: 'Europe tour' },
+              { name: '东南亚游', value: 'Southease Asia tour' }
+            ]
+          }
+        ]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [
+          {
+            name: '周边游',
+            value: 'tour around',
+            children: [
+              { name: '景点', value: 'Scenic spot' },
+              { name: '公园', value: 'Park' },
+              { name: '名胜古迹', value: 'Historical sites' }
+            ]
+          }, {
+            name: '海外游',
+            value: 'tour aboard',
+            children: [
+              { name: '美国游', value: 'American tour' },
+              { name: '欧洲游', value: 'Europe tour' },
+              { name: '东南亚游', value: 'Southease Asia tour' }
+            ]
+          }
+        ]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [
+          {
+            name: '周边游',
+            value: 'tour around',
+            children: [
+              { name: '景点', value: 'Scenic spot' },
+              { name: '公园', value: 'Park' },
+              { name: '名胜古迹', value: 'Historical sites' }
+            ]
+          }, {
+            name: '海外游',
+            value: 'tour aboard',
+            children: [
+              { name: '美国游', value: 'American tour' },
+              { name: '欧洲游', value: 'Europe tour' },
+              { name: '东南亚游', value: 'Southease Asia tour' }
+            ]
+          }
+        ]
+      }]
+      })
     }
   }
 </script>
