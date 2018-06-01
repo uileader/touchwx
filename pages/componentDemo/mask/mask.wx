@@ -29,7 +29,7 @@
         <button type="primary" data-show="{{ true }}"  bindtap="handleShowMask8">黑色毛玻璃效果（仅IOS）</button>
       </view>
     </view>
-    <ui-mask show="{{showMask1}}" hide-delay="500" bindtap="handleShowMask1">
+    <ui-mask show="{{showMask1}}" hide-delay="500" bindtap="masktap">
       <view class="content">
         <button type="success" data-show="{{ false }}" catchtap="handleShowMask1">关闭遮罩</button>
       </view>
@@ -76,7 +76,7 @@
     </ui-mask>
 
     <ui-mask show="{{showMask9}}" effect="scale-in" animation>
-      <view class="content content2" bindtap="handleShowMask9">
+      <view class="content content2" data-show="{{ false }}" bindtap="handleShowMask9">
         <image src="{{imgSrc1}}" style="width:300px;height:346px;" width="300"></image>
       </view>
     </ui-mask>
@@ -115,9 +115,6 @@ export default {
       'background-color':'rgba(255, 255, 255, 0)',
     }
   },
-  handleShowMask(){
-    console.log('1')
-  },
   masktap(e){
     console.log(e)
   },
@@ -127,6 +124,7 @@ export default {
     })
   },
   handleShowMask1 (e) {
+    console.log(e)
     let show = e.currentTarget.dataset.show
     this.setData({
       showMask1: show

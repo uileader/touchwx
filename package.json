@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "touchui-wx-components": "^1.0.10"
+    "touchui-wx-components": "^1.0.11"
   },
   "devDependencies": {
     "@types/weixin-app": "^1.9.0",
