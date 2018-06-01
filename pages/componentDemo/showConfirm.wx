@@ -17,7 +17,8 @@
     <view class="sample_title">显示消息确认框</view>
     <view class="sample_content">
         <button bindtap="showConfirm1">打开Confirm</button>
-        <button bindtap="showConfirm3">带title的Confirm</button>
+        <button bindtap="showConfirm2">带title的Confirm</button>
+        <button bindtap="showConfirm3">换行显示【需要手机上预览】</button>
     </view>
   </view>
 </template>
@@ -35,23 +36,37 @@ export default {
   showConfirm1 () {
     wx.showConfirm({
       content: '您尚未绑定银行卡，绑定银行卡后即可向商家付款',
-      confirmButtonText: '去绑卡',
-      cancelButtonText: '返回',
-      success (result) {
-        if(result.confirm){
-          wx.showToast({
-            title: '触发去绑卡按钮'
-          })
-        }
-      }
+      cancelColor:'red',
+      confirmColor:'#3399ff',
+      confirmText: '去绑卡',
+      cancelText: '返回'
+    })
+  },
+  showConfirm2 () {
+    wx.showConfirm({
+      title: '提示',
+      content: '您尚未绑定银行卡，绑定银行卡后即可向商家付款',
+      cancelColor:'#e60012',
+      confirmColor:'#3399ff',
+      confirmText: '去绑卡',
+      cancelText: '返回'
     })
   },
   showConfirm3 () {
     wx.showConfirm({
       title: '提示',
-      content: '您尚未绑定银行卡，绑定银行卡后即可向商家付款',
-      confirmButtonText: '去绑卡',
-      cancelButtonText: '返回'
+      content: '您尚未绑定银行卡\r\n绑定银行卡后即可向商家付款',
+      cancelColor:'red',
+      confirmColor:'#3399ff',
+      confirmText: '去绑卡',
+      cancelText: '返回',
+      success: (res)=> {
+        if(res){
+          wx.showToast({
+            title: '触发去绑卡按钮'
+          })
+        }
+      }
     })
   },
   navigateBack () {
