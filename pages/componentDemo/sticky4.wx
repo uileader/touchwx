@@ -1,4 +1,4 @@
-<!--image8.ui-->
+<!--sticky4.ui-->
 <template>
   <view>
     <!-- 自定义导航 -->
@@ -18,13 +18,13 @@
     <view class="sticky-in-relative-container">
       <ui-sticky scroll-top="{{ scrollTop }}" top="{{NAV_HEIGHT}}" custom-style="{{ {backgroundColor:'#FFF'} }}">
         <view>
-          <ui-tabs tab-style="{{ {width:width/2+'px !important'} }}" active-tab-style="{{ {width:width/2+'px !important'} }}" >
+          <ui-tabs tab-style="{{ {width:width/2+'px !important'} }}" active-tab-style="{{ {width:width/2+'px !important'} }}" index="{{index}}" bindchange="handleChange">
             <ui-tab>选项一</ui-tab>
             <ui-tab>选项二</ui-tab>
           </ui-tabs>
         </view>
         <view slot="sticky">
-          <ui-tabs tab-style="{{ {width:width/2+'px !important'} }}" active-tab-style="{{ {width:width/2+'px !important'} }}">
+          <ui-tabs tab-style="{{ {width:width/2+'px !important'} }}" active-tab-style="{{ {width:width/2+'px !important'} }}" index="{{index}}" bindchange="handleChange">
             <ui-tab>选项一</ui-tab>
             <ui-tab>选项二</ui-tab>
           </ui-tabs>
@@ -50,13 +50,20 @@ export default {
   },
   data: {
     items: items,
-    current1:0,
+    index:0,
     scrollTop:0,
     width:wx.WIN_WIDTH,
     NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT
   },
   navigateBack () {
     wx.navigateBack()
+  },
+  handleChange(e){
+    console.log(e)
+    let index =  e.detail.index
+    this.setData({
+      index:index 
+    })
   },
   onPageScroll (e) {
     console.log(e)
