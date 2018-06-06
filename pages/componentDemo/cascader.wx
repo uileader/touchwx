@@ -70,8 +70,6 @@
 </template>
 
 <script>
-// import city from 'http://static.uileader.com/res/js/address.js'
-// console.log(city,'city数据')
 export default {
   config: {
     "navigationBarTitleText": "级联选择器"

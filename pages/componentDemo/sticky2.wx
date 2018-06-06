@@ -1,5 +1,6 @@
 <template>
-  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
       <ui-row height="46">
         <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
             <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
@@ -49,6 +50,7 @@
         {{ item }}
       </view>
     </view>
+  </view>
 </template>
 
 

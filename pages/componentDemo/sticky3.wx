@@ -1,6 +1,6 @@
 <!--sticky3.ui-->
 <template>
-<view>
+  <view>
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
         <ui-row height="46">
           <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
@@ -149,7 +149,7 @@
         </ui-row>
       </view>
     </ui-popup>
-    </view>
+  </view>
 </template>
 
 
