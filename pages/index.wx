@@ -6,7 +6,7 @@
       <ui-row height="46" >
         <ui-col vertical-align="middle" align="center">
           <view>
-            TouchUI 组件
+            Touch WX框架
           </view>
         </ui-col>
       </ui-row>
@@ -16,7 +16,7 @@
     <view style="height:{{NAV_HEIGHT}}"></view>
     <view style="padding:10px 0;box-shadow: 0 0px 16px 0 #ccc;position:relative;z-index:99;">
       <image 
-        src="http://images.uileader.com/20180409/c78fa5c1-0519-4f65-ade9-37b2a606ae88.jpg" 
+        src="http://images.uileader.com/20180705/5696ce1b-8628-4726-9b12-63136b2d5608.png" 
         mode="simple" 
         style="width:100%;height:{{imgHeight}}px;"
     ></image>
@@ -279,6 +279,9 @@ export default {
     wx.setStorageSync('splash', 'show')
   },
   changeSwiper (e) {
+  },
+  onShareAppMessage(){
+    
   }
 }
 </script>

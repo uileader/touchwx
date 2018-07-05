@@ -452,7 +452,7 @@
       var currPage = pages[pages.length - 1];   //当前页面
       var prevPage = pages[pages.length - 2];
       prevPage.setData({
-        country1:msg.detail
+        country1:msg.detail.name
       })
       wx.navigateBack()
  

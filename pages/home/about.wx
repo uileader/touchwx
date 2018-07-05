@@ -18,16 +18,16 @@
     style="width:100%;height:{{imgHeight}}px;"
     ></image>
     <view class="text">
-      北京引领视觉科技有限公司旗下品牌UI Leader，一直致力于为企业提供优质的前端解决方案产品。我们的目标是让企业用我们的前端解决方案产品，可以在PC端、移动端、Web端、微信端、物联网领域、大数据领域等众多平台都能做出高质量的应用，并且还能大大的节约开发成本。
+      WeTouch移动云平台致力于让开发者用一套技术就可以开发APP、微信小程序和H5等移动应用，通过WeTouch平台，企业可以大大节约开发和维护成本，缩短项目上线周期。
     </view>
     <view class="text">
-      TouchUI WX是我们推出的完全免费的微信小程序开发框架，包含了丰富的UI控件用于官方组件的补充。与其他小程序开发框架最主要的区别在于：TouchUI WX完全是基于小程序官方的自定义组件机制实现，输出的是小程序原始代码。这样开发者可以很方便的排查错误、还可以基于原始代码继续开发。
+      Touch WX属于WeTouch移动云平台的一部分，是一套完全免费的微信小程序开发框架，包含了丰富的UI控件用于官方组件的补充。当你用WeTouch平台开发了App或H5应用，可以很容易的移植为Touch WX工程，稍作调整就能生成小程序。反之也同样，当你Touch WX开发了微信小程序，可以很方便的移植为App或H5应用。
     </view>
     <view class="text">
       更多产品请访问我们官网
     </view>
     <view class="text">
-      http://www.uileader.com
+      http://www.wetouch.net
     </view>
 
   </view>
