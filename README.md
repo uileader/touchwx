@@ -90,7 +90,7 @@ npm install -g touchui-wx-cli
 
 ## 文档
 
-<a href="http://www.touchui.io/touchui_doc_wx">中文文档</a>
+<a href="http://www.wetouch.net/touchwx_doc">中文文档</a>
 
 ## Demo
 
