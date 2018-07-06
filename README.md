@@ -94,7 +94,7 @@ npm install -g touchui-wx-cli
 
 ## Demo
 
-![img](http://www.touchui.io/img/minapp.jpg)
+ <img src="http://static.uileader.com/touchui/img/minapp.jpg" />
 
 
 
